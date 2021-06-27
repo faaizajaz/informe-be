@@ -2,7 +2,33 @@
 	"folders":
 	[
 		{
-			"path": "."
+			"path": ".",
 		}
-	]
+	],
+	"settings":
+	{
+		"LSP":
+		{
+			"lsp-css":
+			{
+				"enabled": true,
+			},
+			"lsp-html":
+			{
+				"enabled": false,
+			},
+			"LSP-pylance": {
+				"enabled": true,
+			}
+		},
+		"SublimeLinter.linters.pylint.args":
+		[
+			"--load-plugins=pylint_django"
+		],
+		"SublimeLinter.linters.pylint.python": "~/.virtualenvs/informe/bin/python",
+		"debug.configurations":
+		[
+		],
+		"python_interpreter": "/home/faaiz/.virtualenvs/informe/bin/python",
+	},
 }
