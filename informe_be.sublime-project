@@ -15,17 +15,25 @@
 			},
 			"lsp-html":
 			{
-				"enabled": false,
+				"enabled": true,
 			},
 			"LSP-pylance": {
 				"enabled": true,
-			}
+			},
+			"LSP-pylsp":
+            {
+            	"enabled": false,
+                "settings":
+                {
+                    "pylsp.plugins.jedi.environment": "/home/faaiz/.virtualenvs/informe/bin/python"
+                }
+            }
 		},
 		"SublimeLinter.linters.pylint.args":
 		[
 			"--load-plugins=pylint_django"
 		],
-		"SublimeLinter.linters.pylint.python": "~/.virtualenvs/informe/bin/python",
+		"SublimeLinter.linters.pylint.python": "/home/faaiz/.virtualenvs/informe/bin/python",
 		"debug.configurations":
 		[
 		],
