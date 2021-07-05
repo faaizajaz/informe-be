@@ -17,17 +17,38 @@
 			{
 				"enabled": true,
 			},
-			"LSP-pylance": {
+			"LSP-pylance":
+			{
 				"enabled": true,
+				"settings":
+				{
+					"python.pythonPath": "/home/faaiz/.virtualenvs/informe/bin/python",
+				},
+			},
+			"mspyls":
+			{
+				"enabled": false,
+				"initializationOptions":
+				{
+					"interpreter":
+					{
+						"properties":
+						{
+							"InterpreterPath": "/home/faaiz/.virtualenvs/informe/bin/python",
+							"UseDefaultDatabase": true,
+							"Version": "3.8.10",
+						},
+					},
+				},
 			},
 			"LSP-pylsp":
-            {
-            	"enabled": false,
-                "settings":
-                {
-                    "pylsp.plugins.jedi.environment": "/home/faaiz/.virtualenvs/informe/bin/python"
-                }
-            }
+			{
+				"enabled": false,
+			},
+			"LSP-pyright":
+			{
+				"enabled": false
+			},
 		},
 		"SublimeLinter.linters.pylint.args":
 		[
