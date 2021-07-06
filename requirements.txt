@@ -3,6 +3,7 @@ Django==3.2.4
 django-cors-headers==3.7.0
 django-filter==2.4.0
 djangorestframework==3.12.4
+drf-writable-nested==0.6.3
 jedi==0.18.0
 Markdown==3.3.4
 parso==0.8.2

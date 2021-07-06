@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'activity.apps.ActivityConfig',
     'impact.apps.ImpactConfig',
     'indicator.apps.IndicatorConfig',
-    'intoutcome.apps.IntoutcomeConfig',
     'outcome.apps.OutcomeConfig',
     'output.apps.OutputConfig',
     'base_project.apps.BaseProjectConfig',
