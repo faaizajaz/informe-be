@@ -12,7 +12,7 @@ from serializers.nested_serializers import (
 )
 from rest_framework import generics
 
-#
+
 class ProjectList(generics.ListCreateAPIView):
     """
     Provides a list of all projects
@@ -116,6 +116,7 @@ class OutputEdit(generics.UpdateAPIView):
 
     queryset = Output.objects.all()
     serializer_class = OutputSerializer
+
 
 class OutputDelete(generics.DestroyAPIView):
     """
