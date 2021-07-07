@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from base_project.models import Project, Impact, Outcome
+from base_project.models import Output, Project, Impact, Outcome
 
 
 class ProjectSerializer(serializers.ModelSerializer):
@@ -18,4 +18,10 @@ class ImpactSerializer(serializers.ModelSerializer):
 class OutcomeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Outcome
+        fields = ['id', 'short_description', 'long_description']
+
+
+class OutputSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Output
         fields = ['id', 'short_description', 'long_description']
