@@ -1,5 +1,43 @@
 from django.db import models
-from impact.models import Impact
+
+
+class Output(models.Model):
+    short_description = models.CharField(
+        verbose_name="Short description of output", max_length=1000
+    )
+    long_description = models.TextField(verbose_name="Long description of output")
+
+
+class Outcome(models.Model):
+    short_description = models.CharField(
+        verbose_name="Short description of outcome", max_length=1000
+    )
+    long_description = models.TextField(verbose_name="Long description of outcome")
+
+    # Can link directly to output, or via intermediate outcome
+    # TODO: Add something that checks a flag in project for whether intoutcome
+    output = models.ManyToManyField(Output, null=True, blank=True)
+
+    def __str__(self):
+        return self.short_description
+
+
+class Impact(models.Model):
+
+    short_description = models.CharField(
+        verbose_name="Short description of impact",
+        max_length=1000,
+        blank=True,
+        null=True,
+    )
+    long_description = models.TextField(
+        verbose_name="Long description of impact", blank=True, null=True
+    )
+
+    outcome = models.ManyToManyField(Outcome, blank=True, null=True)
+
+    def __str__(self):
+        return self.short_description
 
 
 class Project(models.Model):

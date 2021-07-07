@@ -1,6 +1,5 @@
 from drf_writable_nested.serializers import WritableNestedModelSerializer
-from impact.models import Impact
-from outcome.models import Outcome
+from base_project.models import Impact, Outcome
 from serializers.flat_serializers import OutcomeSerializer
 
 

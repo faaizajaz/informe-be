@@ -1,7 +1,5 @@
 from rest_framework import serializers
-from base_project.models import Project
-from impact.models import Impact
-from outcome.models import Outcome
+from base_project.models import Project, Impact, Outcome
 
 
 class ProjectSerializer(serializers.ModelSerializer):

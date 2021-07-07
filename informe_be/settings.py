@@ -40,10 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'activity.apps.ActivityConfig',
-    'impact.apps.ImpactConfig',
     'indicator.apps.IndicatorConfig',
-    'outcome.apps.OutcomeConfig',
-    'output.apps.OutputConfig',
     'base_project.apps.BaseProjectConfig',
     'corsheaders',
 ]

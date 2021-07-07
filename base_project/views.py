@@ -1,5 +1,4 @@
-from .models import Project
-from impact.models import Impact
+from .models import Project, Impact
 from serializers.flat_serializers import ProjectSerializer, ImpactSerializer
 from serializers.nested_serializers import NestedImpactSerializer
 from rest_framework import generics
