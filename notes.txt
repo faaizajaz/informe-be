@@ -1,2 +1,5 @@
 ## API request to change foreignkey
 curl -d '{"name":"SEDISUCkbutt", "long_description": "sucks donkyy butts", "impact":{"id": 2}, "short_description":"This sucks major butts"}' -X PATCH http://127.0.0.1:8000/api/projects/key/1/ -H "Content-Type: application/json"
+
+## PATCH request to change related key (one level down).
+curl -d '{"outcome": [{"id":2}]}' -X PATCH http://127.0.0.1:8000/api/projects/editimpact/1 -H "Content-Type: application/json"

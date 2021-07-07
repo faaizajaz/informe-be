@@ -14,7 +14,7 @@ class Impact(models.Model):
         verbose_name="Long description of impact", blank=True, null=True
     )
 
-    outcome = models.ManyToManyField(Outcome)
+    outcome = models.ManyToManyField(Outcome, blank=True, null=True)
 
     def __str__(self):
         return self.short_description
