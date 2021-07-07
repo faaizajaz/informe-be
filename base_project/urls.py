@@ -14,6 +14,7 @@ urlpatterns = [
     path('editoutcome/<int:pk>/', views.OutcomeEdit.as_view()),
     path('createoutput/', views.OutputCreate.as_view()),
     path('editoutput/<int:pk>/', views.OutputEdit.as_view()),
+    path('deleteoutput/<int:pk>/', views.OutputDelete.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

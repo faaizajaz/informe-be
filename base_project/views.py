@@ -116,3 +116,11 @@ class OutputEdit(generics.UpdateAPIView):
 
     queryset = Output.objects.all()
     serializer_class = OutputSerializer
+
+class OutputDelete(generics.DestroyAPIView):
+    """
+    Delete an existing Output object using the flat serializer.
+    """
+
+    queryset = Output.objects.all()
+    serializer_class = OutputSerializer
