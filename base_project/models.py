@@ -2,13 +2,26 @@ from django.db import models
 
 
 class Output(models.Model):
+    """
+    The "Output" component of the project's logical framework. This is the
+    lowest level component.
+    """
+
     short_description = models.CharField(
         verbose_name="Short description of output", max_length=1000
     )
     long_description = models.TextField(verbose_name="Long description of output")
 
+    def __str__(self):
+        return self.short_description
+
 
 class Outcome(models.Model):
+    """
+    The "Outcome" component of the project's logical framework. This is the
+    second lowest level component. It defines an M2M relationship to "Output"
+    """
+
     short_description = models.CharField(
         verbose_name="Short description of outcome", max_length=1000
     )
@@ -23,6 +36,10 @@ class Outcome(models.Model):
 
 
 class Impact(models.Model):
+    """
+    The "Impact" component of the project's logical framework. This is the
+    second highest level component. It defines an M2M relationship to "Outcome"
+    """
 
     short_description = models.CharField(
         verbose_name="Short description of impact",
@@ -41,6 +58,11 @@ class Impact(models.Model):
 
 
 class Project(models.Model):
+    """
+    The "Project" component of the project's logical framework. This is the
+    highest level component. It defines a O2M relationship to "Impact"
+    """
+
     name = models.CharField(verbose_name="Project name", max_length=500)
     short_description = models.CharField(
         verbose_name="Short description of project", max_length=1000
