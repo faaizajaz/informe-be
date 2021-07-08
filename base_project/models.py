@@ -70,7 +70,7 @@ class Project(models.Model):
     long_description = models.TextField(verbose_name="Long description of project")
 
     # TODO: null should not be allowed in production
-    impact = models.ForeignKey(Impact, on_delete=models.CASCADE, null=True)
+    impact = models.ManyToManyField(Impact, blank=True, null=True)
 
     def __str__(self):
         return self.name
