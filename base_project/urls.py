@@ -10,6 +10,7 @@ urlpatterns = [
     path('editproject/<int:pk>/', views.ProjectEdit.as_view()),
     path('createimpact/', views.ImpactCreate.as_view()),
     path('editimpact/<int:pk>/', views.ImpactEdit.as_view()),
+    path('deleteimpact/<int:pk>/', views.ImpactDelete.as_view()),
     path('createoutcome/', views.OutcomeCreate.as_view()),
     path('editoutcome/<int:pk>/', views.OutcomeEdit.as_view()),
     path('createoutput/', views.OutputCreate.as_view()),

@@ -78,6 +78,15 @@ class ImpactEdit(generics.UpdateAPIView):
     serializer_class = NestedImpactSerializer
 
 
+class ImpactDelete(generics.DestroyAPIView):
+    """
+    Delete an existing Impact object using the flat serializer.
+    """
+
+    queryset = Impact.objects.all()
+    serializer_class = ImpactSerializer
+
+
 class OutcomeCreate(generics.CreateAPIView):
     """
     Creates a new Outcome object using the flat serializer. Only
