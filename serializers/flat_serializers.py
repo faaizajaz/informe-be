@@ -2,7 +2,7 @@ from drf_writable_nested.serializers import WritableNestedModelSerializer
 from rest_framework import serializers
 from base_project.models import Item, Project
 
-# TODO: There will be 2 item serializers. One to view, and one nested to PATCH
+# TODO: rename this module to just serializers
 
 
 class ItemViewSerializer(serializers.ModelSerializer):
@@ -38,13 +38,21 @@ class ItemUpdateSerializer(serializers.ModelSerializer):
         ]
 
 
+class ItemProjectUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = ['id']
+
+
 class NestedItemSerializer(WritableNestedModelSerializer):
     parent = ItemUpdateSerializer()
+    project = ItemProjectUpdateSerializer()
 
     class Meta:
         model = Item
         fields = [
             'id',
+            'project',
             'level',
             'parent',
             'item_type',
@@ -59,9 +67,3 @@ class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields = ['id', 'name', 'long_description', 'short_description', 'items']
-
-
-# class ImpactSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Impact
-#         fields = ['id', 'short_description', 'long_description']
