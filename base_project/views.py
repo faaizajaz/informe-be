@@ -1,6 +1,11 @@
 from .models import Project, Item
-from serializers.flat_serializers import ProjectSerializer, ItemSerializer
+from serializers.flat_serializers import (
+    NestedItemSerializer,
+    ProjectSerializer,
+    ItemViewSerializer,
+)
 from rest_framework import generics
+from drf_writable_nested.serializers import WritableNestedModelSerializer
 
 
 class ProjectList(generics.ListCreateAPIView):
@@ -35,8 +40,18 @@ class ProjectCreate(generics.CreateAPIView):
 
 
 class ItemList(generics.ListAPIView):
-    queryset = Item.objects.filter(item_type="Impact")
-    serializer_class = ItemSerializer
+    queryset = Item.objects.filter(level=0)
+    serializer_class = ItemViewSerializer
+
+
+class ItemEdit(generics.UpdateAPIView):
+    queryset = Item.objects.all()
+    serializer_class = NestedItemSerializer
+
+
+class ItemCreate(generics.CreateAPIView):
+    queryset = Item.objects.all()
+    serializer_class = NestedItemSerializer
 
 
 # class ProjectEdit(generics.UpdateAPIView):
