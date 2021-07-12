@@ -25,16 +25,14 @@ class Item(MPTTModel):
     lowest level component.
     """
 
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="items")
+    item_type = models.CharField(verbose_name="Item type", max_length=500)
     short_description = models.CharField(
         verbose_name="Short description of Item", max_length=1000
     )
     long_description = models.TextField(verbose_name="Long description of Item")
 
     parent = TreeForeignKey("self", blank=True, null=True, on_delete=models.DO_NOTHING)
-
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="items")
-
-    item_type = models.CharField(verbose_name="Item type", max_length=500)
 
     class MPTTMeta:
         order_insertion_by = ['id']
