@@ -5,7 +5,6 @@ from serializers.flat_serializers import (
     ItemViewSerializer,
 )
 from rest_framework import generics
-from drf_writable_nested.serializers import WritableNestedModelSerializer
 
 
 class ProjectList(generics.ListCreateAPIView):
