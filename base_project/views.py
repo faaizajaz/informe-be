@@ -52,15 +52,3 @@ class ItemEdit(generics.UpdateAPIView):
 class ItemCreate(generics.CreateAPIView):
     queryset = Item.objects.all()
     serializer_class = NestedItemSerializer
-
-
-# class ProjectEdit(generics.UpdateAPIView):
-#     """
-#     Updates an existing Project object using the nested serializer
-#     so can also edit relations to Impact and other objects. This is also
-#     used to define initial relations, since we can't do so with
-#     the ProjectCreate view as it uses a flat serializer.
-#     """
-
-#     queryset = Project.objects.all()
-#     serializer_class = NestedProjectSerializer
