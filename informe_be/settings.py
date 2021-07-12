@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'indicator.apps.IndicatorConfig',
     'base_project.apps.BaseProjectConfig',
     'corsheaders',
+    'mptt',
 ]
 
 MIDDLEWARE = [
