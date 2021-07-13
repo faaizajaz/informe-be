@@ -15,8 +15,8 @@ class ItemViewSerializer(serializers.ModelSerializer):
             'project',
             'level',
             'item_type',
+            'name',
             'parent',
-            'short_description',
             'long_description',
             'nodes',
         ]
@@ -28,14 +28,7 @@ class ItemViewSerializer(serializers.ModelSerializer):
 class ItemUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
-        fields = [
-            'id',
-            'level',
-            'parent',
-            'item_type',
-            'short_description',
-            'long_description',
-        ]
+        fields = ['id', 'level', 'parent', 'item_type', 'name', 'long_description']
 
 
 class ItemProjectUpdateSerializer(serializers.ModelSerializer):
@@ -56,7 +49,7 @@ class NestedItemSerializer(WritableNestedModelSerializer):
             'level',
             'parent',
             'item_type',
-            'short_description',
+            'name',
             'long_description',
         ]
 
@@ -66,4 +59,4 @@ class ProjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Project
-        fields = ['id', 'name', 'long_description', 'short_description', 'items']
+        fields = ['id', 'name', 'long_description', 'name', 'items']
