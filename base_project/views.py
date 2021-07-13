@@ -1,6 +1,6 @@
 from rest_framework.response import Response
 from .models import Project, Item
-from serializers.flat_serializers import (
+from serializers.serializers import (
     NestedItemSerializer,
     NestedProjectSerializer,
     ItemViewSerializer,
