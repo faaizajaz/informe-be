@@ -2,8 +2,9 @@ from rest_framework.response import Response
 from .models import Project, Item
 from serializers.flat_serializers import (
     NestedItemSerializer,
-    ProjectSerializer,
+    NestedProjectSerializer,
     ItemViewSerializer,
+    ProjectListSerializer,
 )
 from rest_framework import generics, status
 
@@ -14,7 +15,7 @@ class ProjectList(generics.ListCreateAPIView):
     """
 
     queryset = Project.objects.all()
-    serializer_class = ProjectSerializer
+    serializer_class = ProjectListSerializer
 
 
 # This will work because it uses MPTT, and since only one project Item is linked to one Project,
@@ -28,7 +29,7 @@ class ProjectDetail(generics.RetrieveUpdateDestroyAPIView):
     """
 
     queryset = Project.objects.all()
-    serializer_class = ProjectSerializer
+    serializer_class = NestedProjectSerializer
 
 
 class ProjectCreate(generics.CreateAPIView):
@@ -38,7 +39,7 @@ class ProjectCreate(generics.CreateAPIView):
     """
 
     queryset = Project.objects.all()
-    serializer_class = ProjectSerializer
+    serializer_class = NestedProjectSerializer
 
     # Override create() to create a Item with type 'project'
     def create(self, request, *args, **kwargs):
