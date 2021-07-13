@@ -1,10 +1,11 @@
+from rest_framework.response import Response
 from .models import Project, Item
 from serializers.flat_serializers import (
     NestedItemSerializer,
     ProjectSerializer,
     ItemViewSerializer,
 )
-from rest_framework import generics
+from rest_framework import generics, status
 
 
 class ProjectList(generics.ListCreateAPIView):
@@ -16,6 +17,8 @@ class ProjectList(generics.ListCreateAPIView):
     serializer_class = ProjectSerializer
 
 
+# This will work because it uses MPTT, and since only one project Item is linked to one Project,
+# it will return a nested JSON with the project at the root.
 class ProjectDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     Provides detail on a specific project. This uses the flat
@@ -36,6 +39,25 @@ class ProjectCreate(generics.CreateAPIView):
 
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
+
+    # TODO: Add logic to create a corresponding project item_type Item when project create
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        x = serializer.save()
+        project_item = Item(
+            project=x,
+            item_type="Project",
+            name=x.name,
+            long_description=x.long_description,
+        )
+        project_item.save()
+        # self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED, headers=headers
+        )
 
 
 class ItemList(generics.ListAPIView):
