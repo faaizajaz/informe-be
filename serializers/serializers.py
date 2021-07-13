@@ -2,8 +2,6 @@ from drf_writable_nested.serializers import WritableNestedModelSerializer
 from rest_framework import serializers
 from base_project.models import Item, Project
 
-# TODO: rename this module to just serializers
-
 
 class ItemViewSerializer(serializers.ModelSerializer):
     nodes = serializers.SerializerMethodField()
