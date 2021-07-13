@@ -40,17 +40,16 @@ class ProjectCreate(generics.CreateAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
 
-    # TODO: Add logic to create a corresponding project item_type Item when project create
-
+    # Override create() to create a Item with type 'project'
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        x = serializer.save()
+        project = serializer.save()
         project_item = Item(
-            project=x,
-            item_type="Project",
-            name=x.name,
-            long_description=x.long_description,
+            project=project,
+            item_type="project",
+            name=project.name,
+            long_description=project.long_description,
         )
         project_item.save()
         # self.perform_create(serializer)
