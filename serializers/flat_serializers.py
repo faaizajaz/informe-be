@@ -54,9 +54,15 @@ class NestedItemSerializer(WritableNestedModelSerializer):
         ]
 
 
-class ProjectSerializer(serializers.ModelSerializer):
+class NestedProjectSerializer(serializers.ModelSerializer):
     items = ItemViewSerializer(many=True, read_only=True)
 
     class Meta:
         model = Project
         fields = ['id', 'name', 'long_description', 'name', 'items']
+
+
+class ProjectListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = ['id', 'name', 'long_description']
