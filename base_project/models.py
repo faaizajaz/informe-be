@@ -11,12 +11,6 @@ class Project(models.Model):
     name = models.CharField(
         verbose_name="Project name", max_length=500, null=True, blank=True
     )
-    short_description = models.CharField(
-        verbose_name="Short description of project",
-        max_length=1000,
-        null=True,
-        blank=True,
-    )
     long_description = models.TextField(
         verbose_name="Long description of project", null=True, blank=True
     )
@@ -31,14 +25,16 @@ class Item(MPTTModel):
     lowest level component.
     """
 
+    # This is optional, and only when a new project is created
     project = models.ForeignKey(
         Project, on_delete=models.CASCADE, related_name="items", null=True, blank=True
     )
+
     item_type = models.CharField(
         verbose_name="Item type", max_length=500, null=True, blank=True
     )
-    short_description = models.CharField(
-        verbose_name="Short description of Item", max_length=1000, null=True, blank=True
+    name = models.CharField(
+        verbose_name="name of Item", max_length=1000, null=True, blank=True
     )
     long_description = models.TextField(
         verbose_name="Long description of Item", null=True, blank=True
@@ -50,4 +46,4 @@ class Item(MPTTModel):
         order_insertion_by = ['id']
 
     def __str__(self):
-        return self.short_description
+        return self.name
