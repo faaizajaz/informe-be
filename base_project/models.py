@@ -27,7 +27,7 @@ class Item(MPTTModel):
 
     # This is optional, and only when a new project is created
     project = models.ForeignKey(
-        Project, on_delete=models.CASCADE, related_name="items", null=True, blank=True
+        Project, on_delete=models.CASCADE, related_name="nodes", null=True, blank=True
     )
 
     item_type = models.CharField(
