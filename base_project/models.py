@@ -1,4 +1,4 @@
-from django.db import models, router
+from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
 from rest_framework import status
 from rest_framework.response import Response
