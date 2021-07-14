@@ -12,6 +12,7 @@ urlpatterns = [
     path('allitems/', views.ItemList.as_view()),
     path('updateitem/<int:pk>/', views.ItemEdit.as_view()),
     path('createitem/', views.ItemCreate.as_view()),
+    path('deleteitem/<int:pk>/', views.ItemDelete.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

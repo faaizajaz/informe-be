@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from .models import Project, Item
 from serializers.serializers import (
     ItemCreateSerializer,
+    ItemUpdateSerializer,
     NestedItemSerializer,
     NestedProjectSerializer,
     ItemViewSerializer,
@@ -74,3 +75,8 @@ class ItemEdit(generics.UpdateAPIView):
 class ItemCreate(generics.CreateAPIView):
     queryset = Item.objects.all()
     serializer_class = ItemCreateSerializer
+
+
+class ItemDelete(generics.DestroyAPIView):
+    queryset = Item.objects.all()
+    serializer_class = ItemUpdateSerializer
