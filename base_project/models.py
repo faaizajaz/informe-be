@@ -1,5 +1,7 @@
-from django.db import models
+from django.db import models, router
 from mptt.models import MPTTModel, TreeForeignKey
+from rest_framework import status
+from rest_framework.response import Response
 
 # TODO: Figure out all these nulls and blanks!
 class Project(models.Model):
@@ -40,10 +42,25 @@ class Item(MPTTModel):
         verbose_name="Long description of Item", null=True, blank=True
     )
 
-    parent = TreeForeignKey("self", blank=True, null=True, on_delete=models.DO_NOTHING)
+    parent = TreeForeignKey("self", blank=True, null=True, on_delete=models.CASCADE)
 
     class MPTTMeta:
         order_insertion_by = ['id']
 
     def __str__(self):
         return self.name
+
+    # def delete(self, *args, **kwargs):
+    #     if not self.project:
+    #         super().delete(*args, **kwargs)
+    #         print("not doing")
+    #     elif self.project:
+    #         return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
+
+    def delete(self, *args, **kwargs):
+        if not self.project:
+            return super().delete(*args, **kwargs)
+        else:
+            # This doesn't work, but I guess the frontend won't provide a way to do this so
+            # no need to handle it.
+            return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
