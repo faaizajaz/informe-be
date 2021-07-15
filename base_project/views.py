@@ -43,23 +43,6 @@ class ProjectCreate(generics.CreateAPIView):
     queryset = Project.objects.all()
     serializer_class = NestedProjectSerializer
 
-    # Override create() to create a Item with type 'project'
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        project = serializer.save()
-        project_item = Item(
-            project=project,
-            item_type="project",
-            name=project.name,
-            long_description=project.long_description,
-        )
-        project_item.save()
-        headers = self.get_success_headers(serializer.data)
-        return Response(
-            serializer.data, status=status.HTTP_201_CREATED, headers=headers
-        )
-
 
 class ItemList(generics.ListAPIView):
     queryset = Item.objects.filter(level=0)

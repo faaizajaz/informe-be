@@ -3,6 +3,7 @@ from mptt.models import MPTTModel, TreeForeignKey
 from rest_framework import status
 from rest_framework.response import Response
 
+
 # TODO: Figure out all these nulls and blanks!
 class Project(models.Model):
     """
@@ -19,6 +20,16 @@ class Project(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        project_item = Item(
+            project=self,
+            item_type="project",
+            name=self.name,
+            long_description=self.long_description,
+        )
+        super().save(*args, **kwargs)
+        project_item.save()
 
 
 class Item(MPTTModel):
