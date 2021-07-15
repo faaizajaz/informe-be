@@ -1,4 +1,3 @@
-from rest_framework.response import Response
 from .models import Project, Item
 from serializers.serializers import (
     ItemCreateSerializer,
@@ -8,7 +7,7 @@ from serializers.serializers import (
     ItemViewSerializer,
     ProjectListSerializer,
 )
-from rest_framework import generics, status
+from rest_framework import generics
 
 
 class ProjectList(generics.ListCreateAPIView):
