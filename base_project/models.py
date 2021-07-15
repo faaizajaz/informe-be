@@ -7,8 +7,10 @@ from rest_framework.response import Response
 # TODO: Figure out all these nulls and blanks!
 class Project(models.Model):
     """
-    The "Project" component of the project's logical framework. This is the
-    highest level component. It defines a O2M relationship to "Impact"
+    The "Project" component of the project's logical framework. This is a
+    container for the project logframe. The root level of the logframe
+    is a single Item object with item_type="project".
+
     """
 
     name = models.CharField(
@@ -34,8 +36,8 @@ class Project(models.Model):
 
 class Item(MPTTModel):
     """
-    The "Item" component of the project's logical framework. This is the
-    lowest level component.
+    The "Item" component of the project's logical framework. This is a recursive
+    component
     """
 
     # This is optional, and only when a new project is created
