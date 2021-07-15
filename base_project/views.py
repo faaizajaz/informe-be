@@ -5,6 +5,7 @@ from serializers.serializers import (
     NestedItemSerializer,
     NestedProjectSerializer,
     ItemViewSerializer,
+    ProjectEditSerializer,
     ProjectListSerializer,
 )
 from rest_framework import generics
@@ -41,6 +42,11 @@ class ProjectCreate(generics.CreateAPIView):
 
     queryset = Project.objects.all()
     serializer_class = NestedProjectSerializer
+
+
+class ProjectEdit(generics.UpdateAPIView):
+    queryset = Project.objects.all()
+    serializer_class = ProjectEditSerializer
 
 
 class ItemList(generics.ListAPIView):
