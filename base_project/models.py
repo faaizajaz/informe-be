@@ -50,17 +50,9 @@ class Item(MPTTModel):
     def __str__(self):
         return self.name
 
-    # def delete(self, *args, **kwargs):
-    #     if not self.project:
-    #         super().delete(*args, **kwargs)
-    #         print("not doing")
-    #     elif self.project:
-    #         return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
-
     def delete(self, *args, **kwargs):
         if not self.project:
             return super().delete(*args, **kwargs)
         else:
-            # This doesn't work, but I guess the frontend won't provide a way to do this so
-            # no need to handle it.
+            # NOTE: Not actually allowed to return Response. Still returns 202. Doesn't matter though.
             return Response(status=status.HTTP_406_NOT_ACCEPTABLE)

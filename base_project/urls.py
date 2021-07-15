@@ -4,8 +4,6 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 
 urlpatterns = [
-    # TODO: Add delete views for items
-    # Project URLS
     path('allprojects/', views.ProjectList.as_view()),
     path('viewproject/<int:pk>/', views.ProjectDetail.as_view()),
     path('createproject/', views.ProjectCreate.as_view()),
