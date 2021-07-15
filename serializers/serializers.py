@@ -32,7 +32,7 @@ class ItemUpdateSerializer(serializers.ModelSerializer):
 class ItemCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
-        fields = ['name', 'long_description', 'parent']
+        fields = ['name', 'long_description', 'parent', 'item_type']
 
 
 class ItemProjectUpdateSerializer(serializers.ModelSerializer):
