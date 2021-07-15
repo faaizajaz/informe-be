@@ -1,3 +1,4 @@
+from operator import is_
 from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
 from rest_framework import status
@@ -20,13 +21,15 @@ class Project(models.Model):
         verbose_name="Long description of project", null=True, blank=True
     )
 
+    level_config = models.JSONField(null=True, blank=True)
+
     def __str__(self):
         return self.name
 
     def save(self, *args, **kwargs):
         project_item = Item(
             project=self,
-            item_type="project",
+            is_project=True,
             name=self.name,
             long_description=self.long_description,
         )
@@ -45,9 +48,10 @@ class Item(MPTTModel):
         Project, on_delete=models.CASCADE, related_name="nodes", null=True, blank=True
     )
 
-    item_type = models.CharField(
-        verbose_name="Item type", max_length=500, null=True, blank=True
-    )
+    # item_type = models.CharField(
+    #     verbose_name="Item type", max_length=500, null=True, blank=True
+    # )
+    is_project = models.BooleanField(default=False)
     name = models.CharField(
         verbose_name="name of Item", max_length=1000, null=True, blank=True
     )
