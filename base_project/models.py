@@ -27,14 +27,26 @@ class Project(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        project_item = Item(
-            project=self,
-            is_project=True,
-            name=self.name,
-            long_description=self.long_description,
-        )
-        super().save(*args, **kwargs)
-        project_item.save()
+        # TODO: Change this initial config
+
+        initial_level_config = [{"level": 0, "name": "Project", "color": "purple"}]
+
+        if not self.level_config:
+
+            self.level_config = initial_level_config
+            super().save(*args, **kwargs)
+
+            # ALERT: This assumes that a project without an initial level config also doesn't have a base Item
+            project_item = Item(
+                project=self,
+                is_project=True,
+                name=self.name,
+                long_description=self.long_description,
+            )
+
+            project_item.save()
+        else:
+            super().save(*args, **kwargs)
 
 
 class Item(MPTTModel):
