@@ -29,7 +29,7 @@ class Project(models.Model):
     def save(self, *args, **kwargs):
         # TODO: Change this initial config
 
-        initial_level_config = [{"level": 0, "name": "Project", "color": "purple"}]
+        initial_level_config = [{"level": 0, "name": "Project", "color": "#3399cc"}]
 
         if not self.level_config:
 
