@@ -1,3 +1,4 @@
+from account.models import CustomUser
 from drf_writable_nested.serializers import WritableNestedModelSerializer
 from rest_framework import serializers
 from base_project.models import Item, Project
@@ -52,19 +53,34 @@ class NestedItemSerializer(WritableNestedModelSerializer):
 
 class NestedProjectSerializer(serializers.ModelSerializer):
     nodes = ItemViewSerializer(many=True, read_only=True)
+    owner = serializers.ReadOnlyField(source='owner.username')
 
     class Meta:
         model = Project
-        fields = ['id', 'name', 'long_description', 'name', 'nodes', 'level_config']
+        fields = [
+            'id',
+            'owner',
+            'name',
+            'long_description',
+            'name',
+            'nodes',
+            'level_config',
+        ]
 
 
 class ProjectListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
-        fields = ['id', 'name', 'long_description', 'level_config']
+        fields = ['id', 'name', 'long_description', 'level_config', 'owner']
 
 
 class ProjectEditSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields = ['level_config']
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['id', 'email', 'username', 'first_name', 'last_name']
