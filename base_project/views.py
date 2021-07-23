@@ -8,10 +8,10 @@ from serializers.serializers import (
     ProjectEditSerializer,
     ProjectListSerializer,
 )
-from rest_framework import generics
+from rest_framework import generics, permissions
 
 
-class ProjectList(generics.ListCreateAPIView):
+class ProjectList(generics.ListAPIView):
     """
     Provides a list of all projects
     """
@@ -42,6 +42,10 @@ class ProjectCreate(generics.CreateAPIView):
 
     queryset = Project.objects.all()
     serializer_class = NestedProjectSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 
 class ProjectEdit(generics.UpdateAPIView):
