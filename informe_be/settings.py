@@ -42,9 +42,13 @@ INSTALLED_APPS = [
     'activity.apps.ActivityConfig',
     'indicator.apps.IndicatorConfig',
     'base_project.apps.BaseProjectConfig',
+    'account.apps.AccountConfig',
     'corsheaders',
     'mptt',
 ]
+
+AUTH_USER_MODEL = 'account.CustomUser'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
