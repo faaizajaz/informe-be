@@ -45,9 +45,22 @@ INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'corsheaders',
     'mptt',
+    'rest_framework.authtoken',
 ]
 
 AUTH_USER_MODEL = 'account.CustomUser'
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': {
+#         'rest_framework.authentication.SessionAuthentication'
+#     },
+#     'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated'],
+# }
+
+CSRF_COOKIE_SAMESITE = 'Strict'
+SESSION_COOKIE_SAMESITE = 'Strict'
+CSRF_COOKIE_HTTPONLY = True
+SESSION_COOKIE_HTTPONLY = True
 
 
 MIDDLEWARE = [
