@@ -1,3 +1,4 @@
+from account.models import CustomUser
 from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
 from rest_framework import status
@@ -23,6 +24,10 @@ class Project(models.Model):
     )
 
     level_config = models.JSONField(null=True, blank=True)
+
+    owner = models.ForeignKey(
+        CustomUser, related_name='owner', on_delete=models.CASCADE
+    )
 
     def __str__(self):
         return self.name
