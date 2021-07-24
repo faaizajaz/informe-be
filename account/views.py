@@ -7,8 +7,8 @@ from django.views.decorators.http import require_POST
 
 
 def get_csrf(request):
-    x = get_token(request)
-    response = JsonResponse({'detail': 'CSRF cookie set', 'X-CSRFToken': x})
+    csrf_token = get_token(request)
+    response = JsonResponse({'detail': 'CSRF cookie set', 'X-CSRFToken': csrf_token})
     return response
 
 
