@@ -17,9 +17,12 @@ class ProjectList(generics.ListAPIView):
     Provides a list of all projects
     """
 
-    queryset = Project.objects.all()
     serializer_class = ProjectListSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Project.objects.filter(owner=user)
 
 
 # This will work because it uses MPTT, and since only one project Item is linked to one Project,
