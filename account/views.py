@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.middleware.csrf import get_token
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_POST
+from rest_framework import response
 
 
 def get_csrf(request):
@@ -19,12 +20,14 @@ def login_view(request):
     password = data.get('password')
 
     if len(username) == 0 or len(password) == 0:
-        return JsonResponse({'detail': 'Please provide username and password.'})
+        return JsonResponse(
+            data={'detail': 'Please provide username and password.'}, status=403
+        )
 
     user = authenticate(username=username, password=password)
 
     if user is None:
-        return JsonResponse({'detail': 'Invalid credentials.'})
+        return JsonResponse({'detail': 'Invalid credentials.'}, status=403)
 
     login(request, user)
     return JsonResponse({'detail': 'Successfully logged in.'})
@@ -32,7 +35,7 @@ def login_view(request):
 
 def logout_view(request):
     if not request.user.is_authenticated:
-        return JsonResponse({'detail': 'You\'re not logged in.'}, status=400)
+        return JsonResponse({'detail': 'You\'re not logged in.'}, status=403)
 
     logout(request)
     return JsonResponse({'detail': 'Successfully logged out.'})
