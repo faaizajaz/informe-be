@@ -9,6 +9,7 @@ from serializers.serializers import (
     ProjectListSerializer,
 )
 from rest_framework import generics, permissions
+from account.permissions import IsOwner
 
 
 class ProjectList(generics.ListAPIView):
@@ -18,6 +19,7 @@ class ProjectList(generics.ListAPIView):
 
     queryset = Project.objects.all()
     serializer_class = ProjectListSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
 
 # This will work because it uses MPTT, and since only one project Item is linked to one Project,
@@ -32,6 +34,7 @@ class ProjectDetail(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Project.objects.all()
     serializer_class = NestedProjectSerializer
+    permission_classes = [IsOwner]
 
 
 class ProjectCreate(generics.CreateAPIView):
