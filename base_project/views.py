@@ -20,6 +20,7 @@ class ProjectList(generics.ListAPIView):
     serializer_class = ProjectListSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    # TODO: Fail gracefully if no user logged in
     def get_queryset(self):
         user = self.request.user
         return Project.objects.filter(owner=user)
