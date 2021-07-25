@@ -25,9 +25,7 @@ class Project(models.Model):
 
     level_config = models.JSONField(null=True, blank=True)
 
-    owner = models.ForeignKey(
-        CustomUser, related_name='owner', on_delete=models.CASCADE
-    )
+    owner = models.ManyToManyField(CustomUser, related_name='owner')
 
     def __str__(self):
         return self.name
