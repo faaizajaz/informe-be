@@ -4,7 +4,6 @@ from django.http import JsonResponse
 from django.middleware.csrf import get_token
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_POST
-from rest_framework import response
 
 
 def get_csrf(request):
@@ -19,6 +18,7 @@ def login_view(request):
     username = data.get('username')
     password = data.get('password')
 
+    # ALERT: All 403 responses do not pass the 'detail' to frontend for some reason
     if len(username) == 0 or len(password) == 0:
         return JsonResponse(
             data={'detail': 'Please provide username and password.'}, status=403
