@@ -27,6 +27,10 @@ class Project(models.Model):
 
     owner = models.ManyToManyField(CustomUser, related_name='owner')
 
+    reporter = models.ManyToManyField(
+        CustomUser, related_name='reporter', null=True, blank=True
+    )
+
     def __str__(self):
         return self.name
 

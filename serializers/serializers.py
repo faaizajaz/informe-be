@@ -60,6 +60,7 @@ class NestedProjectSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'owner',
+            'reporter',
             'name',
             'long_description',
             'name',
@@ -71,7 +72,7 @@ class NestedProjectSerializer(serializers.ModelSerializer):
 class ProjectListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
-        fields = ['id', 'name', 'long_description', 'level_config', 'owner']
+        fields = ['id', 'name', 'long_description', 'level_config', 'owner', 'reporter']
 
 
 class ProjectEditSerializer(serializers.ModelSerializer):
