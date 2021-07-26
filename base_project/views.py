@@ -9,7 +9,8 @@ from serializers.serializers import (
     ProjectListSerializer,
 )
 from rest_framework import generics, permissions
-from account.permissions import IsOwner
+from account.permissions import IsOwner, IsReporter
+from django.db.models import Q
 
 
 class ProjectList(generics.ListAPIView):
@@ -23,7 +24,8 @@ class ProjectList(generics.ListAPIView):
     # TODO: Fail gracefully if no user logged in
     def get_queryset(self):
         user = self.request.user
-        return Project.objects.filter(owner=user)
+        projects = Project.objects.all().filter(Q(owner=user) | Q(reporter=user))
+        return projects
 
 
 # This will work because it uses MPTT, and since only one project Item is linked to one Project,
@@ -38,7 +40,7 @@ class ProjectDetail(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Project.objects.all()
     serializer_class = NestedProjectSerializer
-    permission_classes = [IsOwner]
+    permission_classes = [IsOwner | IsReporter]
 
 
 class ProjectCreate(generics.CreateAPIView):
@@ -52,6 +54,7 @@ class ProjectCreate(generics.CreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
+        # NOTE: arg is a list since 'owner' is an M2M field
         serializer.save(owner=[self.request.user])
 
 
