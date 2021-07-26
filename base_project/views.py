@@ -30,7 +30,7 @@ class ProjectList(generics.ListAPIView):
 
 # This will work because it uses MPTT, and since only one project Item is linked to one Project,
 # it will return a nested JSON with the project at the root.
-class ProjectDetail(generics.RetrieveUpdateDestroyAPIView):
+class ProjectDetail(generics.RetrieveAPIView):
     """
     Provides detail on a specific project. This uses the flat
     "ProjectSerializer" which contains a "depth" parameter,
