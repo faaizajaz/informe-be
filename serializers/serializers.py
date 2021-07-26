@@ -2,10 +2,25 @@ from account.models import CustomUser
 from drf_writable_nested.serializers import WritableNestedModelSerializer
 from rest_framework import serializers
 from base_project.models import Item, Project
+from indicator.models import IndicatorEvidence, Indicator
+
+
+# TODO: Separate serializers into files--or maybe not since they are all related
+class IndicatorSerializer(serializers.ModelSerializer):
+    class Meta:
+        # ALso handle indicator evidence here
+        model = Indicator
+        fields = [
+            'id',
+            'name',
+            'description',
+            # 'evidence',
+        ]
 
 
 class ItemViewSerializer(serializers.ModelSerializer):
     nodes = serializers.SerializerMethodField()
+    indicator = IndicatorSerializer(many=True, read_only=True)
 
     class Meta:
         model = Item
@@ -18,6 +33,7 @@ class ItemViewSerializer(serializers.ModelSerializer):
             'parent',
             'long_description',
             'nodes',
+            'indicator',
         ]
 
     def get_nodes(self, obj):
@@ -59,13 +75,13 @@ class NestedProjectSerializer(serializers.ModelSerializer):
         model = Project
         fields = [
             'id',
+            'level_config',
             'owner',
             'reporter',
             'name',
             'long_description',
             'name',
             'nodes',
-            'level_config',
         ]
 
 
