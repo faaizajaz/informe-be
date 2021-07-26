@@ -1,0 +1,9 @@
+-----------------------------------------------------------
+    Adding a new Indicator
+-----------------------------------------------------------
+
+To add a new indicator via API you do:
+
+[bash]
+curl -d '{"name":"Another indicator", "description":"OKNOW", "item": 39}' -X POST http://127.0.0.1:8000/api/indicator/create/ -H "Content-Type: application/json"
+[\bash]]
