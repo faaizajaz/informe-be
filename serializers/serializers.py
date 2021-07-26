@@ -10,12 +10,7 @@ class IndicatorSerializer(serializers.ModelSerializer):
     class Meta:
         # ALso handle indicator evidence here
         model = Indicator
-        fields = [
-            'id',
-            'name',
-            'description',
-            # 'evidence',
-        ]
+        fields = ['id', 'name', 'description', 'item']
 
 
 class ItemViewSerializer(serializers.ModelSerializer):
