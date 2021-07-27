@@ -22,3 +22,4 @@ class IndicatorEvidence(models.Model):
     description = models.TextField(verbose_name="Description of evidence", null=True)
     indicator = models.ManyToManyField(Indicator, related_name="evidence", null=True)
     file = models.FileField(verbose_name="Evidence documentation", null=True)
+    # TODO: Add reporter field and have it default to request.user
