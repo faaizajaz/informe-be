@@ -25,7 +25,7 @@ SECRET_KEY = '=0rp0b7y40d8e6n_c4vrfwv^7eic*(t0@&$jg35$#2jbc*)97p'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# TODO: Change before deploy, and also make sure CORS issues don't come up when consuming from frontend
+# PREDEPLOY: Change before deploy, and also make sure CORS issues don't come up when consuming from frontend
 ALLOWED_HOSTS = ['*']
 
 
@@ -72,7 +72,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
-# TODO: Either add a whitelist or something when deploying
+# PREDEPLOY: Either add a whitelist or something when deploying
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -137,13 +137,13 @@ USE_L10N = True
 
 USE_TZ = True
 
-
+# PREDEPLOY: Update static files settings
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
 
-
+# PREDEPLOY: Update media settings
 # MEDIA
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
