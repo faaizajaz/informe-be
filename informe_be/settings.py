@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'activity.apps.ActivityConfig',
     'indicator.apps.IndicatorConfig',
     'base_project.apps.BaseProjectConfig',
     'account.apps.AccountConfig',
