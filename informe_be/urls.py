@@ -15,8 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('base_project.urls')),
+    path('api/user-auth/', include('account.urls')),
+    path('api/project/', include('base_project.project_urls')),
+    path('api/item/', include('base_project.item_urls')),
+    path('api/indicator/', include('indicator.indicator_urls')),
+    path('api/evidence/', include('indicator.evidence_urls')),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
