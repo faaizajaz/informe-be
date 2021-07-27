@@ -20,10 +20,10 @@ from rest_framework.urlpatterns import format_suffix_patterns
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/user-auth/', include('account.urls')),
-    path('api/project/', include('base_project.project_urls')),
-    path('api/item/', include('base_project.item_urls')),
-    path('api/indicator/', include('indicator.indicator_urls')),
-    path('api/evidence/', include('indicator.evidence_urls')),
+    path('api/project/', include('base_project.urls.project_urls')),
+    path('api/item/', include('base_project.urls.item_urls')),
+    path('api/indicator/', include('indicator.urls.indicator_urls')),
+    path('api/evidence/', include('indicator.urls.evidence_urls')),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
