@@ -20,7 +20,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from django.conf import settings
 from django.conf.urls.static import static
 
-# TODO: Remove static settings before deploy
+# PREDEPLOY: Remove static settings before deploy
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/user-auth/', include('account.urls')),
