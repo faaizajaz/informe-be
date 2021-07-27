@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from .models import Indicator, IndicatorEvidence
 from rest_framework import generics, permissions
-from rest_framework.parsers import FileUploadParser
+from rest_framework.parsers import MultiPartParser, JSONParser
 from serializers.serializers import (
     IndicatorEvidenceSerializer,
     IndicatorViewSerializer,
@@ -27,9 +27,16 @@ class IndicatorEvidenceDetail(generics.RetrieveAPIView):
 
 class IndicatorEvidenceCreate(generics.CreateAPIView):
     queryset = IndicatorEvidence.objects.all()
-    # serializer_class = IndicatorEvidenceSerializer
-    parser_classes = [FileUploadParser]
+    serializer_class = IndicatorEvidenceSerializer
+    parser_classes = [MultiPartParser, JSONParser]
 
-    # def put(self, request, filename, format=None):
-    #     print(request.data)
-    #     return Response(status=204)
+    def post(self, request):
+        evidence = IndicatorEvidence(
+            name=request.data['name'],
+            description=request.data['description'],
+            file=request.data['file'],
+        )
+        evidence.save()
+        evidence.indicator.set(request.data['indicator'])
+        evidence.save()
+        return Response(status=204)
