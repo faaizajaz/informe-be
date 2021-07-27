@@ -2,7 +2,6 @@ from django.urls import path
 from .. import views
 
 
-# TODO: CHange to /project/all /item/create etc.
 urlpatterns = [
     path('all/', views.ItemList.as_view()),
     path('update/<int:pk>/', views.ItemEdit.as_view()),
