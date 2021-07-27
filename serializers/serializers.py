@@ -9,7 +9,7 @@ from indicator.models import IndicatorEvidence, Indicator
 class IndicatorEvidenceSerializer(serializers.ModelSerializer):
     class Meta:
         model = IndicatorEvidence
-        fields = ['id', 'name', 'description', 'indicator']
+        fields = ['id', 'name', 'description', 'indicator', 'file']
 
 
 class IndicatorViewSerializer(serializers.ModelSerializer):
