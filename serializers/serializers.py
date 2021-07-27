@@ -6,7 +6,23 @@ from indicator.models import IndicatorEvidence, Indicator
 
 
 # TODO: Separate serializers into files--or maybe not since they are all related
-class IndicatorSerializer(serializers.ModelSerializer):
+class IndicatorEvidenceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = IndicatorEvidence
+        fields = ['id', 'name', 'description', 'indicator']
+
+
+class IndicatorViewSerializer(serializers.ModelSerializer):
+    evidence = IndicatorEvidenceSerializer(many=True, read_only=True)
+
+    class Meta:
+        # ALso handle indicator evidence here
+        model = Indicator
+
+        fields = ['id', 'name', 'description', 'item', 'evidence']
+
+
+class IndicatorCreateSerializer(serializers.ModelSerializer):
     class Meta:
         # ALso handle indicator evidence here
         model = Indicator
@@ -15,7 +31,7 @@ class IndicatorSerializer(serializers.ModelSerializer):
 
 class ItemViewSerializer(serializers.ModelSerializer):
     nodes = serializers.SerializerMethodField()
-    indicator = IndicatorSerializer(many=True, read_only=True)
+    indicator = IndicatorViewSerializer(many=True, read_only=True)
 
     class Meta:
         model = Item
