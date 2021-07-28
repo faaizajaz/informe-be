@@ -19,10 +19,12 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 from django.conf import settings
 from django.conf.urls.static import static
+from account.views import register_view
 
 # PREDEPLOY: Remove static settings before deploy
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('register/', register_view, name='register'),
     path('api/user-auth/', include('account.urls')),
     path('api/project/', include('base_project.urls.project_urls')),
     path('api/item/', include('base_project.urls.item_urls')),

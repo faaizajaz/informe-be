@@ -4,6 +4,8 @@ from django.http import JsonResponse
 from django.middleware.csrf import get_token
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_POST
+from django.shortcuts import render, redirect
+from .forms import RegisterForm
 
 
 def get_csrf(request):
@@ -54,6 +56,22 @@ def whoami_view(request):
         return JsonResponse({'isAuthenticated': False})
 
     return JsonResponse({'username': request.user.username})
+
+
+def register_view(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            # PREDEPLOY: Add the correct login redirect URL here.
+            return redirect('SOME_ROUTE')
+    else:
+        form = RegisterForm()
+    return render(request, 'register.html', {'form': form})
 
 
 # Create your views here.
