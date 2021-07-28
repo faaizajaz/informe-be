@@ -21,7 +21,7 @@ def login_view(request):
     password = data.get('password')
 
     # ALERT: All 403 responses do not pass the 'detail' to frontend for some reason
-    if len(username) == 0 or len(password) == 0:
+    if username is None or password is None:
         return JsonResponse(
             data={'detail': 'Please provide username and password.'}, status=403
         )
@@ -58,6 +58,7 @@ def whoami_view(request):
     return JsonResponse({'username': request.user.username})
 
 
+# I guess I'd rather let Django handle this.
 def register_view(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
