@@ -47,3 +47,34 @@ And then, in the relevant view:
     email.attach_file(path) # if attachment needed
     email.send()
 [\python]
+
+-----------------------------------------------------------
+    Invitations
+-----------------------------------------------------------
+
+Invitation view to join a project/organization will look something like this:
+
+Link in email will be something like `.../invitation/<UID>` and the urls.py will handle it like `path('/invitation/<UID>', InvitationAccept.as_view())`.
+
+Then in the view it will be like
+
+[python]
+    class InvitationAccept(GenericAPIView):
+        queryset = Invitation.objects.all()
+
+        def get_queryset(self):
+            invitation = Invitation.objects.get(uid=self.kwargs['UID'])
+            if invitation:
+                if self.request.user is not None:
+                    if self.request.user == invitation.receiver: # or email
+                        invitation.project.reporter = request.user # or whatever
+                        # Redirect to project
+                    else:
+                        # Wrong user
+                else:
+                    # Redirect to login page with 'next'
+            else:
+                # Invalid invitation
+[\python]
+
+Though realistically, it is probably just easier to use a FBV
