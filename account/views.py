@@ -67,8 +67,8 @@ def register_view(request):
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
             login(request, user)
-            # PREDEPLOY: Add the correct login redirect URL here.
-            return redirect('SOME_ROUTE')
+            # PREDEPLOY: Add the correct redirect URL here.
+            return redirect('http://127.0.0.1:8080/')
     else:
         form = RegisterForm()
     return render(request, 'register.html', {'form': form})
