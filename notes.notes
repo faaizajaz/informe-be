@@ -14,3 +14,36 @@ To view an indicator by ${PK} you do:
 [bash]
 curl http://127.0.0.1:8000/api/indicator/view/${PK}
 [\bash]
+
+-----------------------------------------------------------
+    Sending email
+-----------------------------------------------------------
+
+In settings.py, something like this:
+
+[python]
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_PORT = 465
+    EMAIL_HOST_USER = 'rentsbooks@gmail.com'
+    EMAIL_HOST_PASSWORD = 'pjztfsxfrndaysci'
+    EMAIL_USE_SSL = True
+    DEFAULT_FROM_EMAIL = 'rentsbooks@gmail.com'
+[/python]
+
+And then, in the relevant view:
+
+[python]
+    from django.core.mail import EmailMessage
+
+    #...
+
+    subject = "Some subject"
+    body = "Body text"
+    from_email = settings.EMAIL_HOST_USER
+    to = "xyz@gmail.com"
+
+    email = EmailMessage(subject, body, from_email, to)
+    email.attach_file(path) # if attachment needed
+    email.send()
+[\python]
