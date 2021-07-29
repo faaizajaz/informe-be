@@ -25,10 +25,10 @@ class Project(models.Model):
 
     level_config = models.JSONField(null=True, blank=True)
 
-    owner = models.ManyToManyField(CustomUser, related_name='owner')
+    owner = models.ManyToManyField(CustomUser, related_name='owner_of')
 
     reporter = models.ManyToManyField(
-        CustomUser, related_name='reporter', null=True, blank=True
+        CustomUser, related_name='reporter_of', null=True, blank=True
     )
 
     def __str__(self):
