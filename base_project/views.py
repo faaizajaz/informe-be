@@ -1,16 +1,27 @@
-from .models import Project, Item
+from account.permissions import IsOwner, IsReporter
+from django.db.models import Q
+from rest_framework import generics, permissions
 from serializers.serializers import (
     ItemCreateSerializer,
     ItemUpdateSerializer,
+    ItemViewSerializer,
     NestedItemSerializer,
     NestedProjectSerializer,
-    ItemViewSerializer,
     ProjectEditSerializer,
     ProjectListSerializer,
 )
-from rest_framework import generics, permissions
-from account.permissions import IsOwner, IsReporter
-from django.db.models import Q
+
+from .models import Item, Project
+
+# class OrgAll
+
+# class OrgAllProjects
+
+# class OrgCreate
+#       Creator of org becomes owner and automatically also becomes a member
+
+# class OrgEdit
+#       If a new owner is added, autmatically make a member
 
 
 class ProjectList(generics.ListAPIView):
