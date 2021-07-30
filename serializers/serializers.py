@@ -1,5 +1,6 @@
 from account.models import CustomUser
-from base_project.models import Item, Project
+from base_project.models import Item, Organization, Project
+from django.db.models.query_utils import select_related_descend
 from drf_writable_nested.serializers import WritableNestedModelSerializer
 from indicator.models import Indicator, IndicatorEvidence
 from rest_framework import serializers
@@ -116,5 +117,33 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 # class OrgListSerializer level=0 (to just get a list of orgs)
+class OrgListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Organization
+        fields = ['id', 'name']
+
+
+class OrgCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Organization
+        fields = ['name', 'description']
+
+
+class OrgOwnerEditSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Organization
+        fields = ['owner']
+
+    def update(self, instance, validated_data):
+        new_owner = validated_data['owner'][0]
+        instance.member.add(new_owner.id)
+        return super().update(instance, validated_data)
+
+
+class OrgMemberEditSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Organization
+        fields = ['member']
+
 
 # Can I add projects to Orgs using the same serializer?
