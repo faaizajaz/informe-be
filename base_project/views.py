@@ -9,6 +9,7 @@ from serializers.serializers import (
     NestedProjectSerializer,
     OrgCreateSerializer,
     OrgListSerializer,
+    OrgMemberEditSerializer,
     OrgOwnerEditSerializer,
     ProjectEditSerializer,
     ProjectListSerializer,
@@ -53,6 +54,11 @@ class OrgOwnerEdit(generics.UpdateAPIView):
     queryset = Organization.objects.all()
     serializer_class = OrgOwnerEditSerializer
     # TODO: Only Org Owners can do this
+
+
+class OrgMemberEdit(generics.UpdateAPIView):
+    queryset = Organization.objects.all()
+    serializer_class = OrgMemberEditSerializer
 
 
 class ProjectList(generics.ListAPIView):
