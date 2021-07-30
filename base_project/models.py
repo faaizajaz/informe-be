@@ -49,7 +49,11 @@ class Project(models.Model):
         CustomUser, related_name='project_reported', null=True, blank=True
     )
     organization = models.ForeignKey(
-        Organization, related_name="project", on_delete=models.CASCADE, null=True
+        Organization,
+        related_name="project",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
     )
 
     def __str__(self):
