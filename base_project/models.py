@@ -6,6 +6,24 @@ from rest_framework.response import Response
 
 
 # TODO: Figure out all these nulls and blanks!
+# TODO: Figure out all the on_deletes!!!
+class Organization(models.Model):
+    name = models.CharField(verbose_name="Organization name", max_length=1000)
+    description = models.TextField(verbose_name="Organization description")
+    owner = models.ManyToManyField(
+        CustomUser, verbose_name="Organization owner", related_name="org_owned"
+    )
+    member = models.ManyToManyField(
+        CustomUser, verbose_name="Members", related_name="org_joined"
+    )
+
+    # ##### RELATED FIELDS ##### #
+    # project
+    #   TO: Project
+    #   TYPE: ForeignKey (1 Org to many Projects)
+
+    def __str__(self):
+        return self.name
 
 
 class Project(models.Model):
@@ -25,10 +43,13 @@ class Project(models.Model):
 
     level_config = models.JSONField(null=True, blank=True)
 
-    owner = models.ManyToManyField(CustomUser, related_name='owner_of')
+    owner = models.ManyToManyField(CustomUser, related_name='project_owned')
 
     reporter = models.ManyToManyField(
-        CustomUser, related_name='reporter_of', null=True, blank=True
+        CustomUser, related_name='project_reported', null=True, blank=True
+    )
+    organization = models.ForeignKey(
+        Organization, related_name="project", on_delete=models.CASCADE, null=True
     )
 
     def __str__(self):
