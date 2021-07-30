@@ -1,5 +1,5 @@
-from django.db import models
 from base_project.models import Item
+from django.db import models
 
 
 class Indicator(models.Model):
