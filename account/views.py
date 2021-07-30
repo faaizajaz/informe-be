@@ -27,12 +27,9 @@ def login_view(request):
         return JsonResponse(
             data={'detail': 'Please provide username and password.'}, status=403
         )
-
     user = authenticate(username=username, password=password)
-
     if user is None:
         return JsonResponse({'detail': 'Invalid credentials.'}, status=403)
-
     login(request, user)
     return JsonResponse({'detail': 'Successfully logged in.'})
 
@@ -40,7 +37,6 @@ def login_view(request):
 def logout_view(request):
     if not request.user.is_authenticated:
         return JsonResponse({'detail': 'You\'re not logged in.'}, status=403)
-
     logout(request)
     return JsonResponse({'detail': 'Successfully logged out.'})
 
@@ -49,14 +45,12 @@ def logout_view(request):
 def session_view(request):
     if not request.user.is_authenticated:
         return JsonResponse({'isAuthenticated': False})
-
     return JsonResponse({'isAuthenticated': True})
 
 
 def whoami_view(request):
     if not request.user.is_authenticated:
         return JsonResponse({'isAuthenticated': False})
-
     return JsonResponse({'username': request.user.username})
 
 
@@ -75,6 +69,25 @@ def register_view(request):
     else:
         form = RegisterForm()
     return render(request, 'register.html', {'form': form})
+
+
+def get_org_membership(request):
+    if request.user.is_authenticated:
+        orgs = []
+        for org in request.user.org_joined.all():
+            orgs.append(org.id)
+        return JsonResponse({'orgs': orgs})
+    else:
+        return JsonResponse({'message': 'User is not logged in.'})
+
+
+def set_org(request, **kwargs):
+    if request.user.is_authenticated:
+        request.user.current_org = kwargs['org_id']
+        request.user.save()
+        return JsonResponse({'message': 'Set user\'s current organization'})
+    else:
+        return JsonResponse({'message': 'User is not logged in.'})
 
 
 # Create your views here.
