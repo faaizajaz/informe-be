@@ -116,7 +116,6 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['id', 'email', 'username', 'first_name', 'last_name']
 
 
-# class OrgListSerializer level=0 (to just get a list of orgs)
 class OrgListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Organization
@@ -134,6 +133,7 @@ class OrgOwnerEditSerializer(serializers.ModelSerializer):
         model = Organization
         fields = ['owner']
 
+    # To automatically set the new owner as a member
     def update(self, instance, validated_data):
         new_owner = validated_data['owner'][0]
         instance.member.add(new_owner.id)
