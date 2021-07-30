@@ -85,7 +85,7 @@ def set_org(request, **kwargs):
     if request.user.is_authenticated:
         request.user.current_org = kwargs['org_id']
         request.user.save()
-        return JsonResponse({'message': 'Set user\'s current organization'})
+        return JsonResponse({'message': 'Current organization has been set'})
     else:
         return JsonResponse({'message': 'User is not logged in.'})
 
