@@ -7,21 +7,52 @@ from serializers.serializers import (
     ItemViewSerializer,
     NestedItemSerializer,
     NestedProjectSerializer,
+    OrgCreateSerializer,
+    OrgListSerializer,
+    OrgOwnerEditSerializer,
     ProjectEditSerializer,
     ProjectListSerializer,
 )
 
-from .models import Item, Project
+from .models import Item, Organization, Project
+
 
 # class OrgAll
+class OrgList(generics.ListAPIView):
+    serializer_class = OrgListSerializer
+    # TODO: add permissions to OrgList
 
-# class OrgAllProjects
+    def get_queryset(self):
+        user = self.request.user
+        orgs = Organization.objects.filter(member=user.id)
+        return orgs
 
-# class OrgCreate
-#       Creator of org becomes owner and automatically also becomes a member
 
-# class OrgEdit
-#       If a new owner is added, autmatically make a member
+# To see all projects in an organization
+class OrgAllProjects(generics.ListAPIView):
+    serializer_class = ProjectListSerializer
+    # TODO: Permissions--only available to Org owner
+
+    def get_queryset(self):
+        user = self.request.user
+        current_org = Organization.objects.get(id=user.current_org)
+        projects = Project.objects.filter(organization=current_org)
+        return projects
+
+
+class OrgCreate(generics.CreateAPIView):
+    queryset = Organization.objects.all()
+    serializer_class = OrgCreateSerializer
+    # TODO: Figure out who should be able to create organizations
+
+    def perform_create(self, serializer):
+        serializer.save(owner=[self.request.user], member=[self.request.user])
+
+
+class OrgOwnerEdit(generics.UpdateAPIView):
+    queryset = Organization.objects.all()
+    serializer_class = OrgOwnerEditSerializer
+    # TODO: Only Org Owners can do this
 
 
 class ProjectList(generics.ListAPIView):
@@ -35,7 +66,7 @@ class ProjectList(generics.ListAPIView):
     # TODO: Fail gracefully if no user logged in
     def get_queryset(self):
         user = self.request.user
-        projects = Project.objects.all().filter(Q(owner=user) | Q(reporter=user))
+        projects = Project.objects.filter(Q(owner=user) | Q(reporter=user)).distinct()
         return projects
 
 
@@ -66,7 +97,8 @@ class ProjectCreate(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         # NOTE: arg is a list since 'owner' is an M2M field
-        serializer.save(owner=[self.request.user])
+        current_org = Organization.objects.get(id=self.request.user.current_org)
+        serializer.save(owner=[self.request.user], organization=current_org)
 
 
 class ProjectEdit(generics.UpdateAPIView):
