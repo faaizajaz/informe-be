@@ -144,6 +144,3 @@ class OrgMemberEditSerializer(serializers.ModelSerializer):
     class Meta:
         model = Organization
         fields = ['member']
-
-
-# Can I add projects to Orgs using the same serializer?
