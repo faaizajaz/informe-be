@@ -9,3 +9,6 @@ class IsOwner(permissions.BasePermission):
 class IsReporter(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         return request.user in obj.reporter.all()
+
+
+# TODO: Need an IsOrgOwner permission here
