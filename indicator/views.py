@@ -1,13 +1,14 @@
 from django.shortcuts import render
-from rest_framework.response import Response
-from .models import Indicator, IndicatorEvidence
 from rest_framework import generics, permissions
-from rest_framework.parsers import MultiPartParser, JSONParser
+from rest_framework.parsers import JSONParser, MultiPartParser
+from rest_framework.response import Response
 from serializers.serializers import (
+    IndicatorCreateSerializer,
     IndicatorEvidenceSerializer,
     IndicatorViewSerializer,
-    IndicatorCreateSerializer,
 )
+
+from .models import Indicator, IndicatorEvidence
 
 
 class IndicatorDetail(generics.RetrieveAPIView):

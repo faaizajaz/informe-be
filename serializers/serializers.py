@@ -1,11 +1,12 @@
 from account.models import CustomUser
-from drf_writable_nested.serializers import WritableNestedModelSerializer
-from rest_framework import serializers
 from base_project.models import Item, Project
-from indicator.models import IndicatorEvidence, Indicator
-
+from drf_writable_nested.serializers import WritableNestedModelSerializer
+from indicator.models import Indicator, IndicatorEvidence
+from rest_framework import serializers
 
 # TODO: Separate serializers into files--or maybe not since they are all related
+
+
 class IndicatorEvidenceSerializer(serializers.ModelSerializer):
     class Meta:
         model = IndicatorEvidence
@@ -112,3 +113,8 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ['id', 'email', 'username', 'first_name', 'last_name']
+
+
+# class OrgListSerializer level=0 (to just get a list of orgs)
+
+# Can I add projects to Orgs using the same serializer?
