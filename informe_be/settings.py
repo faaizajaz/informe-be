@@ -101,6 +101,7 @@ WSGI_APPLICATION = 'informe_be.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+# PREDEPLOY: Set up postgres database locally and test before deploy
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
