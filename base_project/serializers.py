@@ -106,8 +106,10 @@ class OrgOwnerEditSerializer(serializers.ModelSerializer):
     # To automatically set the new owner as a member
     def update(self, instance, validated_data):
         new_owner = validated_data['owner'][0]
+        instance.owner.add(new_owner.id)
         instance.member.add(new_owner.id)
-        return super().update(instance, validated_data)
+        instance.save()
+        return instance
 
 
 class OrgMemberEditSerializer(serializers.ModelSerializer):
