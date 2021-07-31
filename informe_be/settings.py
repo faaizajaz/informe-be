@@ -149,3 +149,12 @@ STATIC_URL = '/static/'
 # MEDIA
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# PREDEPLOY: Change email settings
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'rentsbooks@gmail.com'
+EMAIL_HOST_PASSWORD = 'pjztfsxfrndaysci'
+EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = 'rentsbooks@gmail.com'
