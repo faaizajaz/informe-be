@@ -1,34 +1,10 @@
-from account.models import CustomUser
-from base_project.models import Item, Organization, Project
-from django.db.models.query_utils import select_related_descend
 from drf_writable_nested.serializers import WritableNestedModelSerializer
-from indicator.models import Indicator, IndicatorEvidence
+from indicator.serializers import IndicatorViewSerializer
 from rest_framework import serializers
 
+from .models import Item, Organization, Project
+
 # TODO: Separate serializers into files--or maybe not since they are all related
-
-
-class IndicatorEvidenceSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = IndicatorEvidence
-        fields = ['id', 'name', 'description', 'indicator', 'file']
-
-
-class IndicatorViewSerializer(serializers.ModelSerializer):
-    evidence = IndicatorEvidenceSerializer(many=True, read_only=True)
-
-    class Meta:
-        # ALso handle indicator evidence here
-        model = Indicator
-
-        fields = ['id', 'name', 'description', 'item', 'evidence']
-
-
-class IndicatorCreateSerializer(serializers.ModelSerializer):
-    class Meta:
-        # ALso handle indicator evidence here
-        model = Indicator
-        fields = ['id', 'name', 'description', 'item']
 
 
 class ItemViewSerializer(serializers.ModelSerializer):
@@ -108,12 +84,6 @@ class ProjectEditSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields = ['level_config']
-
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CustomUser
-        fields = ['id', 'email', 'username', 'first_name', 'last_name']
 
 
 class OrgListSerializer(serializers.ModelSerializer):
