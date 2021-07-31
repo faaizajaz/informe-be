@@ -35,17 +35,21 @@ class SendOrgInvitation(generics.CreateAPIView):
 
 
 def handle_org_invitation(request, uid):
-    if request.user.is_authenticated:
-        invitation = OrgInvitation.objects.get(uid)
-        if invitation:
+    invitation = OrgInvitation.objects.get(uid)
+    if invitation:
+        if (
+            request.user.is_authenticated
+            and invitation.receiver_email == request.user.email
+        ):
             org = Organization.objects.get(id=invitation.organization.id)
             org.member.add(request.user.id)
             org.save()
             return JsonResponse(
                 {'detail': 'Successfully added to organization'}, status=200
             )
-
         else:
-            return JsonResponse({'detail': 'Invitation does not exist.'}, status=404)
+            return JsonResponse(
+                {'detail': 'User is not logged in or email mismatch.'}, status=401
+            )
     else:
-        return JsonResponse({'detail': 'User is not logged in.'}, status=401)
+        return JsonResponse({'detail': 'Invitation does not exist.'}, status=404)
