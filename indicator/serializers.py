@@ -2,8 +2,6 @@ from rest_framework import serializers
 
 from .models import Indicator, IndicatorEvidence
 
-# TODO: Separate serializers into files--or maybe not since they are all related
-
 
 class IndicatorEvidenceSerializer(serializers.ModelSerializer):
     class Meta:
