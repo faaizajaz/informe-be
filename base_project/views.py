@@ -1,7 +1,5 @@
 from account.permissions import IsOwner, IsReporter
-from django.db.models import Q
-from rest_framework import generics, permissions
-from serializers.serializers import (
+from base_project.serializers import (
     ItemCreateSerializer,
     ItemUpdateSerializer,
     ItemViewSerializer,
@@ -14,6 +12,8 @@ from serializers.serializers import (
     ProjectEditSerializer,
     ProjectListSerializer,
 )
+from django.db.models import Q
+from rest_framework import generics, permissions
 
 from .models import Item, Organization, Project
 
