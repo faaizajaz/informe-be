@@ -4,8 +4,6 @@ from rest_framework import serializers
 
 from .models import Item, Organization, Project
 
-# TODO: Separate serializers into files--or maybe not since they are all related
-
 
 class ItemViewSerializer(serializers.ModelSerializer):
     nodes = serializers.SerializerMethodField()
@@ -105,6 +103,7 @@ class OrgOwnerEditSerializer(serializers.ModelSerializer):
 
     # To automatically set the new owner as a member
     def update(self, instance, validated_data):
+        # TODO: Check if new_owner exists in instance.owner. This can be used to add and delete.
         new_owner = validated_data['owner'][0]
         instance.owner.add(new_owner.id)
         instance.member.add(new_owner.id)
