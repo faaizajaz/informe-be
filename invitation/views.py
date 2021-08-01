@@ -15,7 +15,7 @@ class SendOrgInvitation(generics.CreateAPIView):
 
     def post(self, request):
         invitation = OrgInvitation(
-            sender=request.data['sender'],
+            sender=request.user,
             receiver_email=request.data['receiver_email'],
             organization=request.data['organization'],
         )
@@ -39,7 +39,7 @@ def handle_org_invitation(request, uid):
     if invitation:
         if (
             request.user.is_authenticated
-            and invitation.receiver_email == request.user.email
+            and invitation.receiver_email == request.user.email  # noqa: W503
         ):
             org = Organization.objects.get(id=invitation.organization.id)
             org.member.add(request.user.id)
