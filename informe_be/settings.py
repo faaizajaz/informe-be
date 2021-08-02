@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'base_project.apps.BaseProjectConfig',
     'account.apps.AccountConfig',
     'invitation.apps.InvitationConfig',
+    'notification.apps.NotificationConfig',
     'corsheaders',
     'mptt',
 ]
