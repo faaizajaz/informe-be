@@ -1,11 +1,12 @@
-import json
-
+from account.models import CustomUser
 from base_project.models import Organization
 from base_project.views import OrgAllProjects
 from django.core.mail import EmailMessage
 from django.http.response import JsonResponse
+from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST
 from informe_be import settings
+from notification.signals import org_invitation_received
 from rest_framework import generics
 from rest_framework.response import Response
 
@@ -36,6 +37,22 @@ class SendOrgInvitation(generics.CreateAPIView):
 
         email = EmailMessage(subject=subject, body=body, from_email=from_email, to=to)
         email.send()
+
+        try:
+            notification_receiver = CustomUser.objects.get(
+                email=invitation.receiver_email
+            )
+            notification_org = org
+            notification_invitation_sender = request.user
+
+            org_invitation_received.send(
+                sender=self,
+                notification_receiver=notification_receiver,
+                org=notification_org,
+                invitation_sender=notification_invitation_sender,
+            )
+        except CustomUser.DoesNotExist:
+            pass
 
         return Response(status=200)
 
