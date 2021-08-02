@@ -29,7 +29,7 @@ class SendOrgInvitation(generics.CreateAPIView):
         to = (invitation.receiver_email,)
         from_email = settings.EMAIL_HOST_USER
         subject = f"Invitation to join {invitation.organization.name}"
-        # TODO: Change the invitation URL
+        # PREDEPLOY: Change the invitation URL
         body = (
             "Please click to join:"
             f" https://www.informe.com/api/invitation/accept/{invitation.uid}"
@@ -38,6 +38,7 @@ class SendOrgInvitation(generics.CreateAPIView):
         email = EmailMessage(subject=subject, body=body, from_email=from_email, to=to)
         email.send()
 
+        # CREATE NOTIFICATION TO INVITATION RECEIVER
         try:
             notification_receiver = CustomUser.objects.get(
                 email=invitation.receiver_email
@@ -69,6 +70,7 @@ def handle_org_invitation(request, uid):
             org.member.add(request.user.id)
             org.save()
 
+            # CREATE NOTIFICATION TO INVITATION SENDER
             # TODO: Rethink "sender"
             org_invitation_accepted.send(
                 sender=invitation,
