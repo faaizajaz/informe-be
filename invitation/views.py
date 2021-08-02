@@ -1,6 +1,10 @@
+import json
+
 from base_project.models import Organization
+from base_project.views import OrgAllProjects
 from django.core.mail import EmailMessage
 from django.http.response import JsonResponse
+from django.views.decorators.http import require_POST
 from informe_be import settings
 from rest_framework import generics
 from rest_framework.response import Response
@@ -14,15 +18,17 @@ class SendOrgInvitation(generics.CreateAPIView):
     serializer_class = OrgInvitationCreateSerializer
 
     def post(self, request):
+        org = Organization.objects.get(id=request.data['organization'])
         invitation = OrgInvitation(
             sender=request.user,
             receiver_email=request.data['receiver_email'],
-            organization=request.data['organization'],
+            organization=org,
         )
         invitation.save()
-        to = invitation.receiver_email
+        to = (invitation.receiver_email,)
         from_email = settings.EMAIL_HOST_USER
         subject = f"Invitation to join {invitation.organization.name}"
+        # TODO: Change the invitation URL
         body = (
             "Please click to join:"
             f" https://www.informe.com/api/invitation/accept/{invitation.uid}"
@@ -34,8 +40,9 @@ class SendOrgInvitation(generics.CreateAPIView):
         return Response(status=200)
 
 
+@require_POST
 def handle_org_invitation(request, uid):
-    invitation = OrgInvitation.objects.get(uid)
+    invitation = OrgInvitation.objects.get(uid=uid)
     if invitation:
         if (
             request.user.is_authenticated
@@ -44,6 +51,8 @@ def handle_org_invitation(request, uid):
             org = Organization.objects.get(id=invitation.organization.id)
             org.member.add(request.user.id)
             org.save()
+            invitation.delete()
+
             return JsonResponse(
                 {'detail': 'Successfully added to organization'}, status=200
             )
