@@ -7,8 +7,6 @@ from notification.signals import org_invitation_accepted, org_invitation_receive
 def create_org_invitation_received_notification(
     sender, notification_receiver, invitation_sender, org, **kwargs
 ):
-    print(type(invitation_sender))
-
     # ALERT: notification_receiver is a SimpleLazyObject, so we can't do e.g. request.user.first_name
     notification = Notification(
         receiver=notification_receiver,
