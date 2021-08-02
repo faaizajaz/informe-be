@@ -24,6 +24,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', register_view, name='register'),
+    path('api/invitation/', include('invitation.urls')),
     path('api/user-auth/', include('account.urls')),
     path('api/organization/', include('base_project.urls.org_urls')),
     path('api/project/', include('base_project.urls.project_urls')),
