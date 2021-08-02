@@ -44,8 +44,9 @@ class SendOrgInvitation(generics.CreateAPIView):
             )
             notification_invitation_sender = request.user
 
+            # TODO: Rethink "sender"
             org_invitation_received.send(
-                sender=self,
+                sender=invitation,
                 notification_receiver=notification_receiver,
                 org=org,
                 invitation_sender=notification_invitation_sender,
@@ -68,6 +69,7 @@ def handle_org_invitation(request, uid):
             org.member.add(request.user.id)
             org.save()
 
+            # TODO: Rethink "sender"
             org_invitation_accepted.send(
                 sender=invitation,
                 notification_receiver=invitation.sender,
