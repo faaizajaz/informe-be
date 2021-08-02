@@ -14,12 +14,18 @@ def create_org_invitation_received_notification(
         message=f"{invitation_sender} has invited you to join {org.name}",
     )
     notification.save()
-    pass
 
 
 @receiver(org_invitation_accepted)
 def create_org_invitation_accepted_notification(
-    sender, notification_receiver, org, **kwargs
+    sender, notification_receiver, invitation_receiver, org, **kwargs
 ):
     # Create the new notification object
-    pass
+    notification = Notification(
+        receiver=notification_receiver,
+        subject=f"{invitation_receiver} has accepted your invitation.",
+        message=(
+            f"{invitation_receiver} has accepted your invitation to join {org.name}"
+        ),
+    )
+    notification.save()
