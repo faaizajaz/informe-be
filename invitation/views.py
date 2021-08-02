@@ -6,7 +6,7 @@ from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST
 from informe_be import settings
-from notification.signals import org_invitation_received
+from notification.signals import org_invitation_accepted, org_invitation_received
 from rest_framework import generics
 from rest_framework.response import Response
 
@@ -42,13 +42,12 @@ class SendOrgInvitation(generics.CreateAPIView):
             notification_receiver = CustomUser.objects.get(
                 email=invitation.receiver_email
             )
-            notification_org = org
             notification_invitation_sender = request.user
 
             org_invitation_received.send(
                 sender=self,
                 notification_receiver=notification_receiver,
-                org=notification_org,
+                org=org,
                 invitation_sender=notification_invitation_sender,
             )
         except CustomUser.DoesNotExist:
@@ -68,6 +67,14 @@ def handle_org_invitation(request, uid):
             org = Organization.objects.get(id=invitation.organization.id)
             org.member.add(request.user.id)
             org.save()
+
+            org_invitation_accepted.send(
+                sender=invitation,
+                notification_receiver=invitation.sender,
+                invitation_receiver=request.user,
+                org=org,
+            )
+
             invitation.delete()
 
             return JsonResponse(
