@@ -37,7 +37,7 @@ class OrgAllProjects(generics.ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        current_org = Organization.objects.get(id=user.current_org)
+        current_org = Organization.objects.get(id=user.current_org.id)
         projects = Project.objects.filter(organization=current_org)
         return projects
 
@@ -103,8 +103,9 @@ class ProjectCreate(generics.CreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
-        # NOTE: arg is a list since 'owner' is an M2M field
+        # TODO: Try here to catch user.current_org undefined
         current_org = Organization.objects.get(id=self.request.user.current_org)
+        # NOTE: owner arg is a list since it is an M2M field
         serializer.save(owner=[self.request.user], organization=current_org)
 
 
