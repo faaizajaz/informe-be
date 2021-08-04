@@ -10,6 +10,7 @@ from django.views.decorators.http import require_POST
 from .forms import RegisterForm
 
 
+# TODO: Add view to set user current_org
 def get_csrf(request):
     csrf_token = get_token(request)
     response = JsonResponse({'detail': 'CSRF cookie set', 'X-CSRFToken': csrf_token})
