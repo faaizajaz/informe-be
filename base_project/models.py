@@ -113,7 +113,7 @@ class Item(MPTTModel):
         return self.name
 
     def delete(self, *args, **kwargs):
-        if not self.project:
+        if not self.is_project:
             return super().delete(*args, **kwargs)
         else:
             # NOTE: Not actually allowed to return Response. Still returns 202. Doesn't matter though.
