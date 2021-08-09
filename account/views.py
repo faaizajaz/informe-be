@@ -1,13 +1,16 @@
 import json
 
+from account.serializers import UserRegisterSerializer
 from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 from django.middleware.csrf import get_token
 from django.shortcuts import redirect, render
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_POST
+from rest_framework import generics
 
 from .forms import RegisterForm
+from .models import CustomUser
 
 
 # TODO: Add view to set user current_org
@@ -55,21 +58,25 @@ def whoami_view(request):
     return JsonResponse({'username': request.user.username})
 
 
-# I guess I'd rather let Django handle this.
-def register_view(request):
-    if request.method == 'POST':
-        form = RegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=password)
-            login(request, user)
-            # PREDEPLOY: Add the correct redirect URL here.
-            return redirect('http://127.0.0.1:8080/')
-    else:
-        form = RegisterForm()
-    return render(request, 'register.html', {'form': form})
+class RegisterView(generics.CreateAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = UserRegisterSerializer
+
+
+# def register_view(request):
+#     if request.method == 'POST':
+#         form = RegisterForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             username = form.cleaned_data.get('username')
+#             password = form.cleaned_data.get('password1')
+#             user = authenticate(username=username, password=password)
+#             login(request, user)
+#             # PREDEPLOY: Add the correct redirect URL here.
+#             return redirect('http://127.0.0.1:8080/')
+#     else:
+#         form = RegisterForm()
+#     return render(request, 'register.html', {'form': form})
 
 
 def get_org_membership(request):
