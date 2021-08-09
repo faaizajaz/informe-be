@@ -13,7 +13,6 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from account.views import register_view
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -23,7 +22,6 @@ from rest_framework.urlpatterns import format_suffix_patterns
 # PREDEPLOY: Remove static settings before deploy
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('register/', register_view, name='register'),
     path('api/invitation/', include('invitation.urls')),
     path('api/user-auth/', include('account.urls')),
     path('api/organization/', include('base_project.urls.org_urls')),
