@@ -1,11 +1,7 @@
 from account.models import CustomUser
 from base_project.models import Organization
-from base_project.views import OrgAllProjects
-from django.core.mail import EmailMessage
 from django.http.response import JsonResponse
-from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST
-from informe_be import settings
 from notification.signals import org_invitation_accepted, org_invitation_received
 from rest_framework import generics
 from rest_framework.response import Response
