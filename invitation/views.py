@@ -9,6 +9,7 @@ from informe_be import settings
 from notification.signals import org_invitation_accepted, org_invitation_received
 from rest_framework import generics
 from rest_framework.response import Response
+from utilities.email import send_email
 
 from .models import OrgInvitation
 from .serializers import OrgInvitationCreateSerializer
@@ -27,7 +28,6 @@ class SendOrgInvitation(generics.CreateAPIView):
         )
         invitation.save()
         to = (invitation.receiver_email,)
-        from_email = settings.EMAIL_HOST_USER
         subject = f"Invitation to join {invitation.organization.name}"
         # PREDEPLOY: Change the invitation URL
         body = (
@@ -35,8 +35,7 @@ class SendOrgInvitation(generics.CreateAPIView):
             f" https://www.informe.com/api/invitation/accept/{invitation.uid}"
         )
 
-        email = EmailMessage(subject=subject, body=body, from_email=from_email, to=to)
-        email.send()
+        send_email(to, subject, body)
 
         # CREATE NOTIFICATION TO INVITATION RECEIVER
         try:
