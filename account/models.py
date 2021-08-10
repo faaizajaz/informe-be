@@ -1,3 +1,5 @@
+import uuid
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
@@ -6,6 +8,8 @@ class CustomUser(AbstractUser):
     current_org = models.IntegerField(
         verbose_name="Last organization active", default=None, null=True, blank=True
     )
+
+    uid = models.UUIDField(default=uuid.uuid4, editable=False)
     # ##### RELATED FIELDS ##### #
     # project_reported
     #   TO: Project
