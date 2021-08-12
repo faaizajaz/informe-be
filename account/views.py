@@ -4,12 +4,10 @@ from account.serializers import UserRegisterSerializer
 from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 from django.middleware.csrf import get_token
-from django.shortcuts import redirect, render
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_POST
 from rest_framework import generics
 
-from .forms import RegisterForm
 from .models import CustomUser
 
 
@@ -68,7 +66,7 @@ class RegisterView(generics.CreateAPIView):
 #         form = RegisterForm(request.POST)
 #         if form.is_valid():
 #             form.save()
-#             username = form.cleaned_data.get('username')
+#             username = form.cleaned_data.get('u`sername')
 #             password = form.cleaned_data.get('password1')
 #             user = authenticate(username=username, password=password)
 #             login(request, user)
