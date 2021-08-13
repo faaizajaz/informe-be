@@ -81,7 +81,7 @@ def get_org_membership(request):
     if request.user.is_authenticated:
         orgs = []
         for org in request.user.org_joined.all():
-            orgs.append(org.id)
+            orgs.append({'name': org.name})
         return JsonResponse({'orgs': orgs})
     else:
         return JsonResponse({'message': 'User is not logged in.'})
