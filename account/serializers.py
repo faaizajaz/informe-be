@@ -5,12 +5,17 @@ from .models import CustomUser
 
 
 class UserSerializer(serializers.ModelSerializer):
+    """Generic serializer for users"""
+
     class Meta:
         model = CustomUser
         fields = ['id', 'email', 'username', 'first_name', 'last_name']
 
 
 class UserRegisterSerializer(serializers.ModelSerializer):
+
+    """Serializer for user registration view"""
+
     password2 = serializers.CharField(write_only=True)
 
     class Meta:

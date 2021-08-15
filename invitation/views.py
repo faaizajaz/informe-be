@@ -54,7 +54,7 @@ class SendOrgInvitation(generics.CreateAPIView):
 
 
 @require_POST
-def handle_org_invitation(request, uid):
+def handle_org_invitation(request, uid) -> JsonResponse:
     invitation = OrgInvitation.objects.get(uid=uid)
     if invitation:
         if (

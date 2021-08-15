@@ -12,7 +12,17 @@ from .models import CustomUser
 
 
 # TODO: Add view to set user current_org
-def get_csrf(request):
+def get_csrf(request) -> JsonResponse:
+    """Returns a CSRF token on GET
+
+    Args:
+        request (request): Request. Not much more to say
+
+    Returns:
+        JsonResponse: An object containing which contains:
+            "detail" (String): A status message,
+            "X-CSRFToken" (String): The CSRF token for the current session
+    """
     csrf_token = get_token(request)
     response = JsonResponse({'detail': 'CSRF cookie set', 'X-CSRFToken': csrf_token})
     return response
@@ -59,22 +69,6 @@ def whoami_view(request):
 class RegisterView(generics.CreateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = UserRegisterSerializer
-
-
-# def register_view(request):
-#     if request.method == 'POST':
-#         form = RegisterForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             username = form.cleaned_data.get('u`sername')
-#             password = form.cleaned_data.get('password1')
-#             user = authenticate(username=username, password=password)
-#             login(request, user)
-#             # PREDEPLOY: Add the correct redirect URL here.
-#             return redirect('http://127.0.0.1:8080/')
-#     else:
-#         form = RegisterForm()
-#     return render(request, 'register.html', {'form': form})
 
 
 def get_org_membership(request):

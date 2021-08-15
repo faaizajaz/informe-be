@@ -5,6 +5,9 @@ from .models import CustomUser
 
 
 class RegisterForm(UserCreationForm):
+
+    """Form for creating a CustomUser"""
+
     first_name = forms.CharField(max_length=30, help_text='Required')
     last_name = forms.CharField(max_length=30, help_text='Required')
     email = forms.EmailField(max_length=254, help_text='Required.')
