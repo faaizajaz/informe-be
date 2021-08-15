@@ -25,29 +25,14 @@
 					"python.pythonPath": "/home/faaiz/.virtualenvs/informe/bin/python",
 				},
 			},
-			"mspyls":
-			{
-				"enabled": false,
-				"initializationOptions":
-				{
-					"interpreter":
-					{
-						"properties":
-						{
-							"InterpreterPath": "/home/faaiz/.virtualenvs/informe/bin/python",
-							"UseDefaultDatabase": true,
-							"Version": "3.8.10",
-						},
-					},
-				},
-			},
+
 			"LSP-pylsp":
 			{
 				"enabled": false,
 			},
 			"LSP-pyright":
 			{
-				"enabled": false
+				"enabled": false,
 			},
 		},
 		"SublimeLinter.linters.pylint.args":
