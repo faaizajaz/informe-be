@@ -75,7 +75,7 @@ def get_org_membership(request):
     if request.user.is_authenticated:
         orgs = []
         for org in request.user.org_joined.all():
-            orgs.append({'name': org.name})
+            orgs.append({'id': org.id, 'name': org.name})
         return JsonResponse({'orgs': orgs})
     else:
         return JsonResponse({'message': 'User is not logged in.'})
@@ -85,9 +85,26 @@ def set_org(request, **kwargs):
     if request.user.is_authenticated:
         request.user.current_org = kwargs['org_id']
         request.user.save()
-        return JsonResponse({'message': 'Current organization has been set'})
+        return JsonResponse(
+            {
+                'message': 'Current organization has been set',
+                'org': request.user.current_org,
+            }
+        )
     else:
         return JsonResponse({'message': 'User is not logged in.'})
 
 
-# Create your views here.
+def get_current_org(request):
+    if request.user.is_authenticated:
+        if request.user.current_org:
+            return JsonResponse(
+                {
+                    'message': 'Current organization id has been returned',
+                    'org': request.user.current_org,
+                }
+            )
+        else:
+            return JsonResponse({'message': 'No current organization set'})
+    else:
+        return JsonResponse({'message': 'User is not logged in.'})
