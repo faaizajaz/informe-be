@@ -18,17 +18,6 @@ from rest_framework import generics, permissions
 from .models import Item, Organization, Project
 
 
-# class OrgAll
-class OrgList(generics.ListAPIView):
-    serializer_class = OrgListSerializer
-    # TODO: add permissions to OrgList
-
-    def get_queryset(self):
-        user = self.request.user
-        orgs = Organization.objects.filter(member=user.id)
-        return orgs
-
-
 # To see all projects in an organization
 # TODO: Current org needs to be set somewhere.
 class OrgAllProjects(generics.ListAPIView):
@@ -64,7 +53,8 @@ class OrgMemberEdit(generics.UpdateAPIView):
 
 class ProjectList(generics.ListAPIView):
     """
-    Provides a list of all projects
+    Provides a list of all projects owned or reported to for the
+    current user and the user's current organization
     """
 
     serializer_class = ProjectListSerializer
@@ -73,7 +63,9 @@ class ProjectList(generics.ListAPIView):
     # TODO: Fail gracefully if no user logged in
     def get_queryset(self):
         user = self.request.user
-        projects = Project.objects.filter(Q(owner=user) | Q(reporter=user)).distinct()
+        projects = Project.objects.filter(
+            Q(owner=user) | Q(reporter=user), Q(organization__id=user.current_org)
+        ).distinct()
         return projects
 
 
