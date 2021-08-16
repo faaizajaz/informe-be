@@ -11,4 +11,5 @@ urlpatterns = [
     path('whoami/', views.whoami_view, name='user-whoami'),
     path('getorgmembership/', views.get_org_membership, name='user-orgs'),
     path('setorg/<int:org_id>/', views.set_org, name='user-set-org'),
+    path('getcurrentorg/', views.get_current_org, name='user-get-current-org'),
 ]
