@@ -17,6 +17,8 @@ class Organization(models.Model):
         CustomUser, verbose_name="Members", related_name="org_joined"
     )
 
+    profile_picture = models.ImageField(upload_to='profile-pics', null=True, blank=True)
+
     # ##### RELATED FIELDS ##### #
     # project
     #   TO: Project
