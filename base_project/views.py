@@ -8,7 +8,6 @@ from base_project.serializers import (
     NestedItemSerializer,
     NestedProjectSerializer,
     OrgCreateSerializer,
-    OrgListSerializer,
     OrgMemberEditSerializer,
     OrgOwnerEditSerializer,
     ProjectEditSerializer,
