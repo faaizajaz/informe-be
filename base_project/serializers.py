@@ -1,3 +1,4 @@
+from account.serializers import UserSerializer
 from drf_writable_nested.serializers import WritableNestedModelSerializer
 from indicator.serializers import IndicatorViewSerializer
 from rest_framework import serializers
@@ -56,7 +57,8 @@ class NestedItemSerializer(WritableNestedModelSerializer):
 
 class NestedProjectSerializer(serializers.ModelSerializer):
     nodes = ItemViewSerializer(many=True, read_only=True)
-    owner = serializers.ReadOnlyField(source='owner.username')
+    owner = UserSerializer(many=True)
+    reporter = UserSerializer(many=True)
 
     class Meta:
         model = Project
