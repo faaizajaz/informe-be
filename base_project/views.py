@@ -1,4 +1,6 @@
+from account.models import CustomUser
 from account.permissions import IsOwner, IsReporter
+from account.serializers import UserSerializer
 from base_project.serializers import (
     ItemCreateSerializer,
     ItemUpdateSerializer,
@@ -29,6 +31,15 @@ class OrgAllProjects(generics.ListAPIView):
         current_org = Organization.objects.get(id=user.current_org.id)
         projects = Project.objects.filter(organization=current_org)
         return projects
+
+
+class OrgAllMembers(generics.ListAPIView):
+    serializer_class = UserSerializer
+
+    def get_queryset(self):
+        current_org = self.request.user.current_org
+        members = CustomUser.objects.filter(org_joined=current_org)
+        return members
 
 
 class OrgCreate(generics.CreateAPIView):
