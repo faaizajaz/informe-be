@@ -57,8 +57,8 @@ class NestedItemSerializer(WritableNestedModelSerializer):
 
 class NestedProjectSerializer(serializers.ModelSerializer):
     nodes = ItemViewSerializer(many=True, read_only=True)
-    owner = UserSerializer(many=True)
-    reporter = UserSerializer(many=True)
+    owner = UserSerializer(many=True, required=False, read_only=True)
+    reporter = UserSerializer(many=True, required=False, read_only=True)
 
     class Meta:
         model = Project
@@ -71,6 +71,7 @@ class NestedProjectSerializer(serializers.ModelSerializer):
             'long_description',
             'name',
             'nodes',
+            'organization',
         ]
 
 

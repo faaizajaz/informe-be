@@ -107,6 +107,7 @@ class ProjectCreate(generics.CreateAPIView):
     def perform_create(self, serializer):
         # TODO: Try here to catch user.current_org undefined
         current_org = Organization.objects.get(id=self.request.user.current_org)
+
         # NOTE: owner arg is a list since it is an M2M field
         serializer.save(
             owner=[self.request.user],
