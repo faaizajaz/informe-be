@@ -12,6 +12,8 @@ from base_project.serializers import (
     OrgOwnerEditSerializer,
     ProjectEditSerializer,
     ProjectListSerializer,
+    ProjectOwnerEditSerializer,
+    ProjectReporterEditSerializer,
 )
 from django.db.models import Q
 from rest_framework import generics, permissions
@@ -59,6 +61,17 @@ class OrgOwnerEdit(generics.UpdateAPIView):
 class OrgMemberEdit(generics.UpdateAPIView):
     queryset = Organization.objects.all()
     serializer_class = OrgMemberEditSerializer
+
+
+class ProjectOwnerEdit(generics.UpdateAPIView):
+    queryset = Project.objects.all()
+    serializer_class = ProjectOwnerEditSerializer
+    # TODO: Only Org Owners can do this
+
+
+class ProjectReporterEdit(generics.UpdateAPIView):
+    queryset = Project.objects.all()
+    serializer_class = ProjectReporterEditSerializer
 
 
 class ProjectList(generics.ListAPIView):
