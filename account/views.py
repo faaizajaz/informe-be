@@ -57,6 +57,8 @@ def logout_view(request):
 def session_view(request):
     if not request.user.is_authenticated:
         return JsonResponse({'isAuthenticated': False})
+
+    # If ever there was a reason to use a CBV...
     current_user = {
         'id': request.user.id,
         'username': request.user.username,
