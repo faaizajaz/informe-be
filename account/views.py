@@ -57,7 +57,13 @@ def logout_view(request):
 def session_view(request):
     if not request.user.is_authenticated:
         return JsonResponse({'isAuthenticated': False})
-    return JsonResponse({'isAuthenticated': True})
+    current_user = {
+        'id': request.user.id,
+        'username': request.user.username,
+        'first_name': request.user.first_name,
+        'last_name': request.user.last_name,
+    }
+    return JsonResponse({'isAuthenticated': True, 'currentUser': current_user})
 
 
 def whoami_view(request):
