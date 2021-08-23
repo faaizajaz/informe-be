@@ -1,4 +1,4 @@
-from account.serializers import UserSerializer
+from account.serializers import UserProjectMemberSerializer, UserSerializer
 from drf_writable_nested.serializers import WritableNestedModelSerializer
 from indicator.serializers import IndicatorViewSerializer
 from rest_framework import serializers
@@ -135,7 +135,9 @@ class ProjectOwnerEditSerializer(serializers.ModelSerializer):
         return instance
 
 
-class ProjectReporterEditSerializer(serializers.ModelSerializer):
+class ProjectReporterEditSerializer(WritableNestedModelSerializer):
+    # reporter = UserProjectMemberSerializer()
+
     class Meta:
         model = Project
         fields = ['reporter']
