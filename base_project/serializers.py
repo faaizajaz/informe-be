@@ -1,4 +1,4 @@
-from account.serializers import UserProjectMemberSerializer, UserSerializer
+from account.serializers import UserSerializer
 from drf_writable_nested.serializers import WritableNestedModelSerializer
 from indicator.serializers import IndicatorViewSerializer
 from rest_framework import serializers
@@ -130,14 +130,21 @@ class ProjectOwnerEditSerializer(serializers.ModelSerializer):
         # TODO: Check if new_owner exists in instance.owner. This can be used to add and delete owners.
         new_owner = validated_data['owner'][0]
         instance.owner.add(new_owner.id)
-        instance.member.add(new_owner.id)
+        instance.reporter.add(new_owner.id)
         instance.save()
         return instance
 
 
-class ProjectReporterEditSerializer(WritableNestedModelSerializer):
+class ProjectReporterEditSerializer(serializers.ModelSerializer):
     # reporter = UserProjectMemberSerializer()
 
     class Meta:
         model = Project
         fields = ['reporter']
+
+    def update(self, instance, validated_data):
+        # TODO: Check if new_owner exists in instance.owner. This can be used to add and delete owners.
+        new_reporter = validated_data['reporter'][0]
+        instance.reporter.add(new_reporter.id)
+        instance.save()
+        return instance
