@@ -120,3 +120,8 @@ class Item(MPTTModel):
         else:
             # NOTE: Not actually allowed to return Response. Still returns 202. Doesn't matter though.
             return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
+
+    def save(self, *args, **kwargs):
+        if self.parent:
+            self.project = self.parent.project
+        super().save(*args, **kwargs)
