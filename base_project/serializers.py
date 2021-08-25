@@ -69,10 +69,30 @@ class NestedProjectSerializer(serializers.ModelSerializer):
             'reporter',
             'name',
             'long_description',
-            'name',
             'nodes',
             'organization',
         ]
+
+
+#########################################################################
+# THESE TWO SERIALIZERS NEEDED FOR FLAT REPR OF ITEMS UNDER PROJ ########
+
+
+class ItemsFlatSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Item
+        fields = ['id', 'name', 'long_description', 'level']
+
+
+class ProjectItemsFlatSerializer(serializers.ModelSerializer):
+    nodes = ItemsFlatSerializer(many=True)
+
+    class Meta:
+        model = Project
+        fields = ['id', 'name', 'long_description', 'organization', 'nodes']
+
+
+#########################################################################
 
 
 class ProjectListSerializer(serializers.ModelSerializer):

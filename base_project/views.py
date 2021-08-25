@@ -11,6 +11,7 @@ from base_project.serializers import (
     OrgMemberEditSerializer,
     OrgOwnerEditSerializer,
     ProjectEditSerializer,
+    ProjectItemsFlatSerializer,
     ProjectListSerializer,
     ProjectOwnerEditSerializer,
     ProjectReporterEditSerializer,
@@ -96,10 +97,7 @@ class ProjectList(generics.ListAPIView):
 # it will return a nested JSON with the project at the root.
 class ProjectDetail(generics.RetrieveAPIView):
     """
-    Provides detail on a specific project. This uses the flat
-    "ProjectSerializer" which contains a "depth" parameter,
-    so all related objects are visible in this view (Impact,
-    Outcome, Output)
+    Provides detail on a specific project.
     """
 
     queryset = Project.objects.all()
@@ -107,10 +105,14 @@ class ProjectDetail(generics.RetrieveAPIView):
     permission_classes = [IsOwner | IsReporter]
 
 
+class ProjectItems(generics.RetrieveAPIView):
+    queryset = Project.objects.all()
+    serializer_class = ProjectItemsFlatSerializer
+
+
 class ProjectCreate(generics.CreateAPIView):
     """
-    Creates a new Project object using the flat serializer. Only
-    used to create new impacts, not to define relation to Impacts.
+    Creates a new Project object.
     """
 
     queryset = Project.objects.all()
