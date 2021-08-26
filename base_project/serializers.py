@@ -79,9 +79,11 @@ class NestedProjectSerializer(serializers.ModelSerializer):
 
 
 class ItemsFlatSerializer(serializers.ModelSerializer):
+    indicator = IndicatorViewSerializer(many=True)
+
     class Meta:
         model = Item
-        fields = ['id', 'name', 'long_description', 'level']
+        fields = ['id', 'name', 'long_description', 'level', 'indicator']
 
 
 class ProjectItemsFlatSerializer(serializers.ModelSerializer):
