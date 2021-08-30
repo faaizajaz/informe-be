@@ -106,6 +106,7 @@ def set_org(request, **kwargs):
 def get_current_org(request):
     if request.user.is_authenticated:
         if request.user.current_org:
+            # TODO: This only gives the org ID. Should also return the org name
             return JsonResponse(
                 {
                     'message': 'Current organization id has been returned',
