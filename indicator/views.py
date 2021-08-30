@@ -20,6 +20,12 @@ class IndicatorCreate(generics.CreateAPIView):
     serializer_class = IndicatorCreateSerializer
 
 
+# NOTE: create serializer is poorly named. It works here.
+class IndicatorDelete(generics.DestroyAPIView):
+    queryset = Indicator.objects.all()
+    serializer_class = IndicatorCreateSerializer
+
+
 class IndicatorEvidenceDetail(generics.RetrieveAPIView):
     queryset = IndicatorEvidence.objects.all()
     serializer_class = IndicatorEvidenceSerializer
