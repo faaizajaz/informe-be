@@ -2,7 +2,7 @@ from django.core.mail import EmailMessage
 from informe_be import settings
 
 
-def send_email(to: str, subject: str, body: str) -> None:
+def send_email(to: tuple, subject: str, body: str) -> None:
     """Sends an email message.
 
     Args:
