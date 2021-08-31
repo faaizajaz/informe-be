@@ -17,7 +17,7 @@
 			{
 				"enabled": true,
 			},
-			"LSP-pylance":
+			"lsp-pylance":
 			{
 				"enabled": true,
 				"settings":
