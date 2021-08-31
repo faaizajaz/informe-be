@@ -8,5 +8,6 @@ from django.db import models
 class OrgInvitation(models.Model):
     sender = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     receiver_email = models.EmailField()
+    message = models.TextField(blank=True, null=True)
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
     uid = models.UUIDField(default=uuid.uuid4, editable=False)
