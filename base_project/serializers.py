@@ -158,15 +158,36 @@ class ProjectOwnerEditSerializer(serializers.ModelSerializer):
 
 
 class ProjectReporterEditSerializer(serializers.ModelSerializer):
-    # reporter = UserProjectMemberSerializer()
-
     class Meta:
         model = Project
         fields = ['reporter']
 
     def update(self, instance, validated_data):
         # TODO: Check if new_owner exists in instance.owner. This can be used to add and delete owners.
+        selection = self.context['request'].data.get('for')
+
+        if selection == 'add':
+            instance = self.add_reporter(instance, validated_data)
+            return instance
+        elif selection == 'remove':
+            instance = self.remove_from_all(instance, validated_data)
+            return instance
+
+    def add_reporter(self, instance, validated_data):
         new_reporter = validated_data['reporter'][0]
         instance.reporter.add(new_reporter.id)
+        instance.save()
+        return instance
+
+    # ALERT: This is terrible. But since you would never remove a reporter while still
+    # retaining that person as an owner, we have a single remove_from_all method that
+    # takes care of both removing the person from reporters, and from owners. If you want
+    # to remove a person as reporter without removing as owner, tough shit, you'll have to
+    # remove from both and then add as a reporter manually
+
+    def remove_from_all(self, instance, validated_data):
+        reporter = validated_data['reporter'][0]
+        instance.reporter.remove(reporter.id)
+        instance.owner.remove(reporter.id)
         instance.save()
         return instance
