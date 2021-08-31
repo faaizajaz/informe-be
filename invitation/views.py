@@ -20,6 +20,7 @@ class SendOrgInvitation(generics.CreateAPIView):
         invitation = OrgInvitation(
             sender=request.user,
             receiver_email=request.data['receiver_email'],
+            message=request.data['message'],
             organization=org,
         )
         invitation.save()
@@ -27,8 +28,9 @@ class SendOrgInvitation(generics.CreateAPIView):
         subject = f"Invitation to join {invitation.organization.name}"
         # PREDEPLOY: Change the invitation URL
         body = (
-            "Please click to join:"
-            f" https://www.informe.com/api/invitation/accept/{invitation.uid}"
+            f"You have been invited to join {invitation.organization.name} by"
+            f" {request.user.username} \n\n{invitation.message}\n\nPlease click to"
+            f" join: https://www.informe.com/api/invitation/accept/{invitation.uid}"
         )
 
         send_email(to, subject, body)
