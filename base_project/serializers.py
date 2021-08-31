@@ -129,17 +129,35 @@ class OrgOwnerEditSerializer(serializers.ModelSerializer):
     # To automatically set the new owner as a member
     def update(self, instance, validated_data):
         # TODO: Check if new_owner exists in instance.owner. This can be used to add and delete owners.
+
+        selection = self.context['request'].data.get('for')
+
+        if selection == 'add':
+            instance = self.add_owner(instance, validated_data)
+            return instance
+        elif selection == 'remove':
+            instance = self.remove_from_all(instance, validated_data)
+            return instance
+
+    def add_owner(self, instance, validated_data):
         new_owner = validated_data['owner'][0]
         instance.owner.add(new_owner.id)
         instance.member.add(new_owner.id)
         instance.save()
         return instance
 
+    def remove_from_all(self, instance, validated_data):
+        person = validated_data['owner'][0]
+        instance.owner.remove(person.id)
+        instance.member.remove(person.id)
+        instance.save()
+        return instance
 
-class OrgMemberEditSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Organization
-        fields = ['member']
+
+# NOTE: We don't need this serializer since member adding is handled in the invitation
+# handling view
+#
+# class OrgMemberEditSerializer(serializers.ModelSerializer):
 
 
 class ProjectOwnerEditSerializer(serializers.ModelSerializer):
