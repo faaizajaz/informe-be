@@ -50,7 +50,7 @@ class SendOrgInvitation(generics.CreateAPIView):
         except CustomUser.DoesNotExist:
             pass
 
-        return Response(status=200)
+        return Response(status=200, data="Successfully sent invitation")
 
 
 @require_POST
