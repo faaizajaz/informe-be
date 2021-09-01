@@ -22,7 +22,6 @@ from .models import Item, Organization, Project
 
 
 # To see all projects in an organization
-# TODO: Current org needs to be set somewhere.
 class OrgAllProjects(generics.ListAPIView):
     serializer_class = ProjectListSerializer
     # TODO: Permissions--only available to Org owner

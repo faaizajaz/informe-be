@@ -9,22 +9,6 @@
 	{
 		"LSP":
 		{
-			"lsp-css":
-			{
-				"enabled": true,
-			},
-			"lsp-html":
-			{
-				"enabled": true,
-			},
-			"lsp-pylance":
-			{
-				"enabled": true,
-				"settings":
-				{
-					"python.pythonPath": "/home/faaiz/.virtualenvs/informe/bin/python",
-				},
-			},
 
 			"LSP-pylsp":
 			{
@@ -33,6 +17,14 @@
 			"LSP-pyright":
 			{
 				"enabled": false,
+			},
+			"LSP-pylance":
+			{
+				"enabled": true,
+				"settings":
+				{
+					"python.pythonPath": "/home/faaiz/.virtualenvs/informe/bin/python",
+				},
 			},
 		},
 		"SublimeLinter.linters.pylint.args":
