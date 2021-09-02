@@ -150,6 +150,16 @@ class OrgOwnerEditSerializer(serializers.ModelSerializer):
         person = validated_data['owner'][0]
         instance.owner.remove(person.id)
         instance.member.remove(person.id)
+        for proj in instance.project.all():
+            for owner in proj.owner.all():
+                if person.username == owner.username:
+                    print("also removed from owner")
+                    proj.owner.remove(person.id)
+            for reporter in proj.reporter.all():
+                if person.username == reporter.username:
+                    print("also removed from reporter")
+                    proj.reporter.remove(person.id)
+
         instance.save()
         return instance
 
