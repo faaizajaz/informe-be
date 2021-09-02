@@ -128,10 +128,13 @@ class OrgOwnerEditSerializer(serializers.ModelSerializer):
 
     # To automatically set the new owner as a member
     def update(self, instance, validated_data):
+        """Updates the Organization instance"""
         # TODO: Check if new_owner exists in instance.owner. This can be used to add and delete owners.
 
+        # PATCH request comes with a 'for' parameter.
         selection = self.context['request'].data.get('for')
 
+        # Add or remove based on the 'for' parameter
         if selection == 'add':
             instance = self.add_owner(instance, validated_data)
             return instance
@@ -140,6 +143,10 @@ class OrgOwnerEditSerializer(serializers.ModelSerializer):
             return instance
 
     def add_owner(self, instance, validated_data):
+        """
+        Adds a new owner to the Organization instance.
+        Also adds the same user as a reporter since all owners should be reporters.
+        """
         new_owner = validated_data['owner'][0]
         instance.owner.add(new_owner.id)
         instance.member.add(new_owner.id)
@@ -147,19 +154,26 @@ class OrgOwnerEditSerializer(serializers.ModelSerializer):
         return instance
 
     def remove_from_all(self, instance, validated_data):
+        """
+        Removes a user from Org owner and member roles. Also removes
+        the user from all Org projects (as owner and reporter).
+        """
         person = validated_data['owner'][0]
+
+        # Remove user from owners and members
         instance.owner.remove(person.id)
         instance.member.remove(person.id)
+
+        # Remove user from org's projects
         for proj in instance.project.all():
             for owner in proj.owner.all():
                 if person.username == owner.username:
-                    print("also removed from owner")
                     proj.owner.remove(person.id)
             for reporter in proj.reporter.all():
                 if person.username == reporter.username:
-                    print("also removed from reporter")
                     proj.reporter.remove(person.id)
 
+        # Save Organization instance and return
         instance.save()
         return instance
 
