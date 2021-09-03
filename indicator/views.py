@@ -38,11 +38,16 @@ class IndicatorEvidenceCreate(generics.CreateAPIView):
 
     def post(self, request):
         evidence = IndicatorEvidence(
-            name=request.data['name'],
-            description=request.data['description'],
-            file=request.data['file'],
+            name=request.data['name'], description=request.data['description']
         )
         evidence.save()
-        evidence.indicator.set(request.data['indicator'])
+
+        print(request.data['file'])
+
+        if request.data['file'] != 'undefined':
+            evidence.file = request.data['file']
+
+        evidence.save()
+        evidence.indicator.set([request.data['indicator']])
         evidence.save()
         return Response(status=204)
