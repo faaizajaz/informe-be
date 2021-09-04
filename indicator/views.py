@@ -42,8 +42,6 @@ class IndicatorEvidenceCreate(generics.CreateAPIView):
         )
         evidence.save()
 
-        print(request.data['file'])
-
         if request.data['file'] != 'undefined':
             evidence.file = request.data['file']
 
