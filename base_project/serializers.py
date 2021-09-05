@@ -141,6 +141,9 @@ class OrgOwnerEditSerializer(serializers.ModelSerializer):
         elif selection == 'remove':
             instance = self.remove_from_all(instance, validated_data)
             return instance
+        elif selection == 'remove-owner':
+            instance = self.remove_from_owner(instance, validated_data)
+            return instance
 
     def add_owner(self, instance, validated_data):
         """
@@ -174,6 +177,13 @@ class OrgOwnerEditSerializer(serializers.ModelSerializer):
                     proj.reporter.remove(person.id)
 
         # Save Organization instance and return
+        instance.save()
+        return instance
+
+    def remove_from_owner(self, instance, validated_data):
+        person = validated_data['owner'][0]
+
+        instance.owner.remove(person.id)
         instance.save()
         return instance
 
