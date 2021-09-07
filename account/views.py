@@ -58,12 +58,18 @@ def session_view(request):
     if not request.user.is_authenticated:
         return JsonResponse({'isAuthenticated': False})
 
+    # By default, imagefield.url returns a relative url, so we need to build
+    # an absolute url to avoid hardcoding anything
+    profile_picture_url = request.user.profile_picture.url
+    absolute_profile_picture_url = request.build_absolute_uri(profile_picture_url)
+
     # If ever there was a reason to use a CBV...
     current_user = {
         'id': request.user.id,
         'username': request.user.username,
         'first_name': request.user.first_name,
         'last_name': request.user.last_name,
+        'profile_picture': absolute_profile_picture_url,
     }
     return JsonResponse({'isAuthenticated': True, 'currentUser': current_user})
 
