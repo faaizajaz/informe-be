@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+import dj_database_url
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
     'notification.apps.NotificationConfig',
     'corsheaders',
     'mptt',
+    'django.contrib.postgres',
 ]
 
 AUTH_USER_MODEL = 'account.CustomUser'
@@ -105,11 +108,22 @@ WSGI_APPLICATION = 'informe_be.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 # PREDEPLOY: Set up postgres database locally and test before deploy
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+        'ENGINE': 'django.db.backends.postgresql',  # noqa: E121
+        'NAME': 'informe_dev',
+        'USER': 'faaiz',
+        'PASSWORD': 'Outpo3t33',
+        'HOST': '',
+        'PORT': '',  # this seems to be default that the server wants
+    }  # noqa: E122
 }
 
 
