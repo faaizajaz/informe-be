@@ -6,8 +6,10 @@ from .models import CustomUser
 
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
+    fieldsets = (
+        *UserAdmin.fieldsets,
+        ('Custom fields', {'fields': ('profile_picture', 'current_org')}),
+    )
 
 
 admin.site.register(CustomUser, CustomUserAdmin)
-
-# Register your models here.
