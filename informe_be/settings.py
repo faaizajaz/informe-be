@@ -165,6 +165,7 @@ STATIC_URL = '/static/'
 # MEDIA
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+PROFILE_PICTURE_MAX_DIM = 400
 
 # PREDEPLOY: Change email settings
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
