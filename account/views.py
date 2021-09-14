@@ -11,7 +11,6 @@ from rest_framework import generics
 from .models import CustomUser
 
 
-# TODO: Add view to set user current_org
 def get_csrf(request) -> JsonResponse:
     """Returns a CSRF token on GET
 
