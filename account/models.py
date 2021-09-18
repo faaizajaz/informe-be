@@ -32,9 +32,10 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.username
 
-    # To resize profile picture on save. This takes center of image.
-    def save(self):
-        super().save()
+    # TODO: Need a better way to resize profile pic
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
         img = Image.open(self.profile_picture.path)
 
         if img.height > PROFILE_PICTURE_MAX_DIM or img.width > PROFILE_PICTURE_MAX_DIM:
