@@ -1,4 +1,22 @@
 {
+	"debugger_configurations" : [		
+		{
+			"name": "Django",
+			"type": "python",
+			"stopOnEntry": false,
+			"request": "launch",
+			"program": "/home/faaiz/documents/websites/informe/informe_be/manage.py",
+			"python": "/home/faaiz/.virtualenvs/informe/bin/python",
+			"args": [
+				"runserver",
+				"8000",
+				"--no-color",
+        		"--noreload"
+			],
+			"django": true,
+
+		},
+	],
 	"folders":
 	[
 		{
@@ -7,6 +25,7 @@
 	],
 	"settings":
 	{
+
 		"LSP":
 		{
 
@@ -32,9 +51,9 @@
 			"--load-plugins=pylint_django"
 		],
 		"SublimeLinter.linters.pylint.python": "/home/faaiz/.virtualenvs/informe/bin/python",
-		"debug.configurations":
-		[
-		],
+
 		"python_interpreter": "/home/faaiz/.virtualenvs/informe/bin/python",
+
 	},
+
 }
