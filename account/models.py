@@ -27,12 +27,13 @@ class CustomUser(AbstractUser):
 
     uid = models.UUIDField(default=uuid.uuid4, editable=False)
 
-    profile_picture = models.ImageField(upload_to='profile-pics', null=True, blank=True)
+    profile_picture = models.ImageField(upload_to="profile-pics", null=True, blank=True)
 
     def __str__(self):
         return self.username
 
     # TODO: Need a better way to resize profile pic
+
 
 # def save(self, *args, **kwargs):
 #     super().save(*args, **kwargs)
