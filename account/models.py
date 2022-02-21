@@ -34,16 +34,16 @@ class CustomUser(AbstractUser):
 
     # TODO: Need a better way to resize profile pic
 
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        img = Image.open(self.profile_picture.path)
+# def save(self, *args, **kwargs):
+#     super().save(*args, **kwargs)
+#     img = Image.open(self.profile_picture.path)
 
-        if img.height > PROFILE_PICTURE_MAX_DIM or img.width > PROFILE_PICTURE_MAX_DIM:
-            start_x = (img.width // 2) - (PROFILE_PICTURE_MAX_DIM // 2)
-            start_y = (img.height // 2) - (PROFILE_PICTURE_MAX_DIM // 2)
-            end_x = (img.width // 2) + (PROFILE_PICTURE_MAX_DIM // 2)
-            end_y = (img.height // 2) + (PROFILE_PICTURE_MAX_DIM // 2)
+#     if img.height > PROFILE_PICTURE_MAX_DIM or img.width > PROFILE_PICTURE_MAX_DIM:
+#         start_x = (img.width // 2) - (PROFILE_PICTURE_MAX_DIM // 2)
+#         start_y = (img.height // 2) - (PROFILE_PICTURE_MAX_DIM // 2)
+#         end_x = (img.width // 2) + (PROFILE_PICTURE_MAX_DIM // 2)
+#         end_y = (img.height // 2) + (PROFILE_PICTURE_MAX_DIM // 2)
 
-            area = (start_x, start_y, end_x, end_y)
-            cropped_img = img.crop(area)
-            cropped_img.save(self.profile_picture.path)
+#         area = (start_x, start_y, end_x, end_y)
+#         cropped_img = img.crop(area)
+#         cropped_img.save(self.profile_picture.path)
