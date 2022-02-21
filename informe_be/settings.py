@@ -22,60 +22,60 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '=0rp0b7y40d8e6n_c4vrfwv^7eic*(t0@&$jg35$#2jbc*)97p'
+SECRET_KEY = "=0rp0b7y40d8e6n_c4vrfwv^7eic*(t0@&$jg35$#2jbc*)97p"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 # PREDEPLOY: Change before deploy, and also make sure CORS issues don't come up when consuming from frontend
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'rest_framework',
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'indicator.apps.IndicatorConfig',
-    'base_project.apps.BaseProjectConfig',
-    'account.apps.AccountConfig',
-    'invitation.apps.InvitationConfig',
-    'notification.apps.NotificationConfig',
-    'corsheaders',
-    'mptt',
-    'django.contrib.postgres',
+    "rest_framework",
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "indicator.apps.IndicatorConfig",
+    "base_project.apps.BaseProjectConfig",
+    "account.apps.AccountConfig",
+    "invitation.apps.InvitationConfig",
+    "notification.apps.NotificationConfig",
+    "corsheaders",
+    "mptt",
+    "django.contrib.postgres",
 ]
 
-AUTH_USER_MODEL = 'account.CustomUser'
+AUTH_USER_MODEL = "account.CustomUser"
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication'
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication"
     ],
     #'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated'],
 }
 
-CSRF_COOKIE_SAMESITE = 'Strict'
-SESSION_COOKIE_SAMESITE = 'Strict'
+CSRF_COOKIE_SAMESITE = "Strict"
+SESSION_COOKIE_SAMESITE = "Strict"
 CSRF_COOKIE_HTTPONLY = True
 SESSION_COOKIE_HTTPONLY = True
 
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
     # PREDEPLOY: CSRF MUST BE ENABLED!!!
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 # PREDEPLOY: Either add a whitelist or something when deploying
@@ -83,25 +83,25 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
 
 
-ROOT_URLCONF = 'informe_be.urls'
+ROOT_URLCONF = "informe_be.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ]
         },
     }
 ]
 
-WSGI_APPLICATION = 'informe_be.wsgi.application'
+WSGI_APPLICATION = "informe_be.wsgi.application"
 
 
 # Database
@@ -116,13 +116,13 @@ WSGI_APPLICATION = 'informe_be.wsgi.application'
 # }
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',  # noqa: E121
-        'NAME': 'informe_dev',
-        'USER': 'faaiz',
-        'PASSWORD': 'Outpo3t33',
-        'HOST': '',
-        'PORT': '',  # this seems to be default that the server wants
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",  # noqa: E121
+        "NAME": "informe_dev",
+        "USER": "faaiz",
+        "PASSWORD": "Outpo3t33",
+        "HOST": "",
+        "PORT": "",  # this seems to be default that the server wants
     }  # noqa: E122
 }
 
@@ -132,22 +132,22 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': (
-            'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'
+        "NAME": (
+            "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
         )
     },
-    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
@@ -159,19 +159,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 
 # PREDEPLOY: Update media settings
 # MEDIA
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 PROFILE_PICTURE_MAX_DIM = 400
 
 # PREDEPLOY: Change email settings
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 465
-EMAIL_HOST_USER = 'rentsbooks@gmail.com'
-EMAIL_HOST_PASSWORD = 'pjztfsxfrndaysci'
+EMAIL_HOST_USER = "rentsbooks@gmail.com"
+EMAIL_HOST_PASSWORD = "pjztfsxfrndaysci"
 EMAIL_USE_SSL = True
-DEFAULT_FROM_EMAIL = 'rentsbooks@gmail.com'
+DEFAULT_FROM_EMAIL = "rentsbooks@gmail.com"
